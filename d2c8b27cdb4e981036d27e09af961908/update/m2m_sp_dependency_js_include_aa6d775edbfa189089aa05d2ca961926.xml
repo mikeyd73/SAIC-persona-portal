@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_dependency_js_include">
+    <m2m_sp_dependency_js_include action="INSERT_OR_UPDATE">
+        <order>100</order>
+        <sp_dependency display_value="HighStock 721">73dc7bdadbfa189089aa05d2ca961912</sp_dependency>
+        <sp_js_include display_value="https://code.highcharts.com/stock/highstock.js">f45df75edbfa189089aa05d2ca961921</sp_js_include>
+        <sys_class_name>m2m_sp_dependency_js_include</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-08-25 18:15:48</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>aa6d775edbfa189089aa05d2ca961926</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>HighStock 721.https://code.highcharts.com/stock/highstock.js</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>m2m_sp_dependency_js_include_aa6d775edbfa189089aa05d2ca961926</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-08-25 18:15:48</sys_updated_on>
+    </m2m_sp_dependency_js_include>
+</record_update>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.panel-heading{&#13;
+  text-align: center;&#13;
+  padding: 0px;&#13;
+}&#13;
+.dataTitle{&#13;
+  font-weight: 900;&#13;
+}&#13;
+.msg1{&#13;
+  text-align: center;&#13;
+  padding: 0px;&#13;
+  font-weight: 900;&#13;
+  font-size:10.5pt;&#13;
+}&#13;
+&#13;
+p.ssp-font-14{&#13;
+	font-size: 14;&#13;
+}&#13;
+&#13;
+p.ssp-font-14.ssp-bold{&#13;
+	font-weight: bold;&#13;
+}&#13;
+&#13;
+p.ssp-font-14 a{&#13;
+	color: #ff0000 !default;&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description>Contact information update widget for the top of the oc_index page</description>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>epsp_contact_info_update</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>EPSP Contact Info Update</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	data.usrName = gs.getUserDisplayName();
+	
+	data.title = options.title || "Contact Information Update";
+	
+	data.headingShow = options.showHeading || true;
+	data.mesShow = options.showMessage || true;
+	
+	data.msgOne = options.displayMessage || 'Due to an increase in users working remotely, please update your contact information (best contact number) to ensure we can reach you to fulfill your request in a timely manner.';
+	
+	data.updateLink = options.link || "oc?id=sc_cat_item&sys_id=dcedc6f5db7f88d0b83e790aaf96197e&sysparm_category=4d948f6d6f0a15007d1f35af1e3ee4ff";
+	data.linkText = options.linkText || "Click Here To Update".toUpperCase();
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminrobert</sys_created_by>
+        <sys_created_on>2020-08-18 12:15:30</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>b8d7e248db325c5089aa05d2ca9619a8</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>EPSP Contact Info Update</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sp_widget_b8d7e248db325c5089aa05d2ca9619a8</sys_update_name>
+        <sys_updated_by>adminrobert</sys_updated_by>
+        <sys_updated_on>2020-08-18 12:51:50</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default">
+  <div class="panels-container col-md-12">
+    <div>
+      <div class="panel-heading" ng-if="c.data.headingShow">
+        <div class="panel-title">
+          <h4 class="dataTitle">{{data.title}}</h4>
+        </div>
+      </div>
+    </div>
+    <div ng-if="c.data.mesShow" class="msg1">
+      <p>
+        {{data.msgOne}}
+      </p>
+    </div>
+    <div class="col-md-12">
+      <p class="ssp-font-14 ssp-bold text-center"><a href="{{data.updateLink}}" target="_top">{{ data.linkText }}</a></p>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

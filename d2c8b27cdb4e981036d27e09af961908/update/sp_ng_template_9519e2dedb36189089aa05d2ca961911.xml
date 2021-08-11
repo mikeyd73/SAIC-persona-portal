@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_ng_template">
+    <sp_ng_template action="INSERT_OR_UPDATE">
+        <id>sspITILTemplate</id>
+        <sp_widget display_value="Persona Engine">c6133341db4a1c1036d27e09af961945</sp_widget>
+        <sys_class_name>sp_ng_template</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-08-25 12:07:19</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>9519e2dedb36189089aa05d2ca961911</sys_id>
+        <sys_mod_count>17</sys_mod_count>
+        <sys_name>sspITILTemplate</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sp_ng_template_9519e2dedb36189089aa05d2ca961911</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-12-02 13:39:17</sys_updated_on>
+        <template><![CDATA[<!--
+<div class="row">
+  <div class="col-md-12 ssp-hero-header">
+    <sp-widget ng-if="data.wd[0]" widget="data.wd[0]"></sp-widget>
+  </div>
+</div>
+-->
+<div class="row">
+  <!--<div class="col-md-1"></div>-->
+  <div class="col-md-12">
+    <sp-widget ng-if="data.wBigSearch" widget="data.wBigSearch"></sp-widget>
+  </div>
+ <!-- <div class="col-md-1"></div>-->
+</div>
+
+<div class="row" style="margin-top: 10px; margin-bottom: 6px;">
+    <div class="col-md-12" >
+      <sp-widget ng-if="data.wPrefDept" widget="data.wPrefDept"></sp-widget>
+  </div>
+</div>
+
+<div ng-if="data.prefShowSummary" class="row" style="margin-bottom:8px;">
+  <div class="col-md-3">
+    <sp-widget ng-if="data.wd[13]" widget="data.wd[13]"></sp-widget>
+  </div>		  
+  <div class="col-md-3">
+    <sp-widget ng-if="data.wd[14]" widget="data.wd[14]"></sp-widget>
+  </div>		  
+  <div class="col-md-3">
+    <sp-widget ng-if="data.wd[15]" widget="data.wd[15]"></sp-widget>
+  </div>		  
+  <div class="col-md-3">
+    <sp-widget ng-if="data.wd[19]" widget="data.wd[19]"></sp-widget>
+  </div>		  
+</div>
+
+<div ng-if="data.prefShowSummary" class="row" style="margin-bottom:8px;">
+  <div class="col-md-3">
+    <sp-widget ng-if="data.wd[16]" widget="data.wd[16]"></sp-widget>
+  </div>		  
+  <div class="col-md-3">
+    <sp-widget ng-if="data.wd[17]" widget="data.wd[17]"></sp-widget>
+  </div>		  
+  <div class="col-md-3">
+    <sp-widget ng-if="data.wd[18]" widget="data.wd[18]"></sp-widget>
+  </div>		  
+  <div class="col-md-3">
+    <sp-widget ng-if="data.wd[20]" widget="data.wd[21]"></sp-widget>
+  </div>		  
+</div>
+
+<div class="row" style="margin-top: 20px;">
+  <div class="col-md-6">
+    <sp-widget ng-if="data.wHPMaster" widget="data.wHPMaster"></sp-widget>
+  </div>		  
+  <div class="col-md-6">
+    <sp-widget ng-if="data.wMyStuff" widget="data.wMyStuff"></sp-widget>
+  </div>
+</div>
+
+
+<div class="row" style="margin-top: 15px;">
+  <div class="col-md-12">
+    <sp-widget ng-if="data.wd[12]" widget="data.wd[12]"></sp-widget>
+  </div>
+</div>
+
+<!--
+<div class="row">
+  <div class="col-md-10"></div>    
+  <div class="col-md-2" style="white-space: nowrap;">
+    <select ng-model="c.data.selectedTemplate" ng-options="x.title for x in c.data.templates track by x.title" ng-change="c.updateTemp()"></select>
+  </div>    
+</div>
+-->
+]]></template>
+    </sp_ng_template>
+</record_update>

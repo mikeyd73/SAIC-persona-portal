@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $rootScope, $http) {
+  /* widget controller */
+  var c = this;
+	
+	$scope.updatePrefDept = function() {
+		$http.get('/api/x_saico_eppersona/client_utils/setUserPrefDept?prefDept='+c.data.prefDept)
+			.then(function(res) {
+				location.href = "/oc";
+		});	
+	};
+	
+		
+	$scope.toggleSummaryView = function() {
+		var showVal;
+		if (c.data.prefShowSummary) {
+			showVal = "no";
+		} else {
+			showVal = "yes";
+		}
+		$http.get('/api/x_saico_eppersona/client_utils/setUserPrefShowSummary?showSummary='+showVal)
+			.then(function(res) {
+				location.href = "/oc";
+		});	
+	};
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.epspPref {
+	margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 2px;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>epsp_preferences</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>epsp_preferences</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	// data.prefDept = "OCPW";
+	
+	var smu = new SSPMegaUtil();
+	
+	data.prefDept = smu.getUserDepartment();
+	data.prefShowSummary = smu.getUserShowSummary();
+	gs.info("prefDept: " + data.prefDept + "\nprefShowSummary: " + data.prefShowSummary);
+	// Get list of Departments
+	data.departments = ['ALL'];
+	var gr = new GlideRecord('cmn_department');
+	gr.addEncodedQuery('u_active=true');
+	gr.orderBy('name');
+	gr.query();
+	
+	while (gr.next()) {
+		data.departments.push(gr.getDisplayValue('name'));
+	}
+	
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-10-07 13:48:50</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>0facd4dcdbb7dc14df8c6154ca96195e</sys_id>
+        <sys_mod_count>46</sys_mod_count>
+        <sys_name>epsp_preferences</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sp_widget_0facd4dcdbb7dc14df8c6154ca96195e</sys_update_name>
+        <sys_updated_by>adminles</sys_updated_by>
+        <sys_updated_on>2021-05-05 02:04:48</sys_updated_on>
+        <template><![CDATA[<div class="epspPref">
+	<form ng-if="c.data.prefShowSummary">
+    <strong>Summary for Department:</strong>
+    <!-- <select ng-model="c.data.prefDept" size="1" ng-change="updatePrefDept()"> -->
+    <select ng-model="c.data.prefDept" size="1" ng-options="dept for dept in c.data.departments" ng-change="updatePrefDept()">
+      <!-- <option ng-repeat="dept in c.data.departments" value="{{dept}}">{{dept}}</option> -->
+    </select>
+  	<a href="" ng-click="toggleSummaryView()">(Hide)</a>
+  </form>
+  <a ng-if="!c.data.prefShowSummary" href="" ng-click="toggleSummaryView()"><strong>&#8250;</strong> Display Department Summary Reports</a>
+</div>]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_js_include">
+    <sp_js_include action="INSERT_OR_UPDATE">
+        <display_name>https://code.highcharts.com/stock/highstock.js</display_name>
+        <source>url</source>
+        <sys_class_name>sp_js_include</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-08-25 18:15:47</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>f45df75edbfa189089aa05d2ca961921</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>https://code.highcharts.com/stock/highstock.js</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_ui_script/>
+        <sys_update_name>sp_js_include_f45df75edbfa189089aa05d2ca961921</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-08-25 18:15:47</sys_updated_on>
+        <url>https://code.highcharts.com/stock/highstock.js</url>
+    </sp_js_include>
+</record_update>

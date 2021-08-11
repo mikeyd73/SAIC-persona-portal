@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_saico_eppersona.SSPChartUtils</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description>Utilities for producing chart widgets.</description>
+        <name>SSPChartUtils</name>
+        <script><![CDATA[var SSPChartUtils = Class.create();
+SSPChartUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+
+	/////////////////////////////////////////
+	// Provide a list of the next 14 days of
+	// Change Requests pending
+	getPendingChanges: function() {
+		var gr = new GlideRecord('change_request');
+		
+		// May need to make this filter more exclusive to reduce the result set.
+		gr.addEncodedQuery("active=true^start_dateRELATIVELT@dayofweek@ahead@14^start_dateRELATIVEGT@minute@ago@1^typeINNormal,Emergency^stateIN4,-3,-2,-1,0,1,2,5");
+		gr.query();
+		
+		var rez = [];
+		var oneChange = {
+			'number' : "",
+			'startDate' : "",
+			'endDate'   : "",
+			'description' : "",
+			'downTime' : ""
+		};
+		
+		while (gr.next()) {
+			rez.push({
+				'number'      : gr.getDisplayValue('number'),
+				'startDate'   : gr.getDisplayValue('start_date').slice(0, -3),
+				'endDate'     : gr.getDisplayValue('end_date').slice(0, -3),
+				'description' : gr.getDisplayValue('short_description'),
+				'downTime'    : gr.getDisplayValue('u_downtime_required_'),
+				'sysID'       : gr.getValue('sys_id')
+			});
+		}
+		
+		return rez;
+	},
+	
+	
+	getPaletteByName: function(palName) {
+		var judgeLong = [
+			"#FE2712", // Red
+			"#FB9902", // Orange
+			"#FEFE33", // Yellow
+			"#FD5307", // Red-Orange
+			"#FABC01", // Yellow-Orange
+			"#D0EA2B", // Yellow-Green
+			"#66B032", // Green
+			"#006600", // Dark-Green
+			"#0147FE"  // Blue
+		];
+
+		var judgeShort = [
+			"#FE2712", // Red
+			"#FEFE33", // Yellow
+			"#D0EA2B", // Yellow-Green
+			"#66B032", // Green
+			"#0147FE"  // Blue
+		];
+
+		var allBad = [
+			"#FE2712", // Red
+			"#d16f66", // Pale Red
+			"#e3d12b", // Yellow
+			"#fcf081", // Pale Yellow
+			"#c9f7ff", // Pale Cyan
+		];
+
+		
+		var catShort = [
+			"#176d98", // Blue
+			"#a34efe", // Purple
+			"#C1687E", // Red
+			"#46999d", // Green
+			"#ffb347", // Orange
+			"#efef66", // Yellow
+		];
+		
+		var catLong = [
+			"#2f1847", // Purple
+			"#624763", // Dark Rose
+			"#C62e65", // Redish
+			"#c985a2", // Pale pink
+			"#62ab37", // Green
+			"#8dc2a8", // Mint
+			"#7b6d8d", // Pale Purple
+			"#75889e", // Pale Blue
+			"#2c423f", // Hunter Green
+		];
+		
+		
+		if (palName == 'judgeLong') {
+			return judgeLong;
+		} else if (palName == 'judgeShort') {
+			return judgeShort;
+		} else if (palName == 'allBad') {
+			return allBad;
+		} else if (palName == 'catLong') {
+			return catLong;			
+		} else {
+			return catShort;
+		}
+	},
+	
+	getJudgementPalette: function() {
+	
+		var judgeMe = [
+			"#FE2712", // Red
+			"#FB9902", // Orange
+			"#FEFE33", // Yellow
+			"#FD5307", // Red-Orange
+			"#FABC01", // Yellow-Orange
+			"#D0EA2B", // Yellow-Green
+			"#66B032", // Green
+			"#006600", // Dark-Green
+			"#0147FE"  // Blue
+		];
+		
+		return judgeMe;
+	},
+
+	getCategoryPalette: function() {
+	
+		var catMe = [
+			"#176d98", // Blue
+			"#a34efe", // Purple
+			"#C1687E", // Red
+			"#46999d", // Green
+			"#ffb347", // Orange
+			"#efef66", // Yellow
+		];
+		
+		return catMe;
+	},
+
+	// Provides data series for a pie chart from the incident table
+	// based on aggregate field and filter
+	incidentPie: function(aggField, aggFilter) {
+		var gra = new GlideAggregate('incident');
+		gra.addEncodedQuery(aggFilter);
+
+		gra.groupBy(aggField);
+		gra.addAggregate('COUNT');
+		gra.orderBy('COUNT');
+		gra.query();
+
+		var chartData = [];
+		var gaVal = 0;
+		var topX = 50;
+
+		while(gra.next() && topX) {
+			gaVal = parseInt(gra.getAggregate('COUNT'));
+			if (!gaVal) continue;
+			chartData.push({
+				"name": gra.getDisplayValue(aggField),
+				"y": gaVal
+			});
+			topX--;
+		}
+		
+// 		function compareByY( a, b ) {
+// 			if ( a.y > b.y ){
+// 				return -1;
+// 			}
+// 			if ( a.y < b.y ){
+// 				return 1;
+// 			}
+// 				return 0;
+// 		}
+// 		if (aggField != 'priority') {
+// 			chartData.sort(compareByY);
+// 		}
+		
+		return chartData;
+	},
+
+	// Provides data series for a bar chart from the incident table
+	// based on aggregate field and filter
+	barScrollData: function(aggField, aggFilter, table, sortbycount) {
+		var gra = new GlideAggregate(table);
+		gra.addEncodedQuery(aggFilter);
+		gra.groupBy(aggField);
+		gra.addAggregate('COUNT');
+		gra.orderByDesc('COUNT');
+		// gra.orderBy('COUNT');
+		gra.query();
+
+		var chartData = [];
+		var gaVal = 0;
+		var topX = 50;
+
+		while(gra.next()) {
+			gaVal = parseInt(gra.getAggregate('COUNT'));
+			if (!gaVal) continue;
+			chartData.push({
+				"name": gra.getDisplayValue(aggField),
+				"y": gaVal
+			});
+		}
+		
+		function compareByY( a, b ) {
+			if ( a.y > b.y ){
+				return -1;
+			}
+			if ( a.y < b.y ){
+				return 1;
+			}
+				return 0;
+		}
+		if (sortbycount) {
+			chartData.sort(compareByY);
+		}
+		
+
+		return chartData.slice(0,50);
+	},
+
+	// Get the aggregate aging data overall or by dept
+	aggAgingData: function(deptOrAll) {
+		if (!gs.getUser().hasRole('itil')) {
+
+			var gr = new GlideRecord('x_saico_eppersona_query_cache_table');
+			gr.addQuery('query_name', 'agingSummary');
+			if (!deptOrAll || deptOrAll == 'ALL') {
+				gr.addEncodedQuery('department=NULL');
+			} else {
+				gr.addQuery('department.name', deptOrAll);
+			}
+			gr.query();
+			if (gr.next()) {
+				return JSON.parse(gr.query_result);
+			}
+		}
+		
+		var rez = {
+			'incAge30' : 0,
+			'incAge30Link' : "/nav_to.do?uri=%2Fincident_list.do%3Fsysparm_query%3Dactive%3Dtrue%5Esys_created_onRELATIVEGE@dayofweek@ago@30%5Eu_record_typeSTARTSWITHInc",
+			'incSer30' : 0,
+			'incSer30Link' : "/nav_to.do?uri=%2Fincident_list.do%3Fsysparm_query%3Dactive%3Dtrue%5Esys_created_onRELATIVEGE@dayofweek@ago@30%5Eu_record_typeSTARTSWITHSer",
+			'reqReq30' : 0,
+			'reqReq30Link' : "/nav_to.do?uri=%2Fsc_request_list.do%3Fsysparm_query%3Dactive%3Dtrue%5Esys_created_onRELATIVEGT@dayofweek@ago@30"
+		};
+		
+		var ga = new GlideAggregate('incident');
+		ga.addEncodedQuery('sys_created_onRELATIVEGE@dayofweek@ago@30^active=true');
+		if (deptOrAll != '' && deptOrAll != 'ALL') {
+			ga.addEncodedQuery('caller_id.department.name='+deptOrAll);
+			rez.incAge30Link = rez.incAge30Link+"%5Ecaller_id.department.name%3D"+deptOrAll;
+			rez.incSer30Link = rez.incSer30Link+"%5Ecaller_id.department.name%3D"+deptOrAll;
+		}
+		ga.addAggregate('COUNT', 'u_record_type');
+		ga.orderBy('u_record_type');
+		ga.query();
+		
+		var urt = "";
+		while (ga.next()) {
+			urt = ga.getValue('u_record_type');
+			if (urt == "Incident") {
+				rez.incAge30 = parseInt(ga.getAggregate('COUNT', 'u_record_type'));			
+			} else if (urt == "Service Request") {
+				rez.incSer30 = parseInt(ga.getAggregate('COUNT', 'u_record_type'));
+			}
+		}
+		
+		ga = new GlideAggregate('sc_request');
+		ga.addEncodedQuery('sys_created_onRELATIVEGE@dayofweek@ago@30^active=true');
+		if (deptOrAll != '' && deptOrAll != 'ALL') {
+			ga.addEncodedQuery('requested_for.department.name='+deptOrAll);
+			rez.reqReq30Link = rez.reqReq30Link+"%5Erequested_for.department.name%3D"+deptOrAll;
+		}
+		ga.addAggregate('COUNT');
+		ga.query();		
+		
+		while (ga.next()) {
+			rez.reqReq30 = parseInt(ga.getAggregate('COUNT'));
+		}
+		
+		return rez;
+	},
+	
+	// Method to produce data for the 8 specified
+	// "Manager" charts for one department.  Add 
+	// additional chart data calls here.
+	genCacheDataForDept: function(userDept) {
+
+		var iDeptFilter = "^caller_id.department.name="+userDept;
+		var rDeptFilter = "^request.requested_for.department.name="+userDept;
+		if (!userDept || userDept == "ALL") {
+			iDeptFilter = "";
+			rDeptFilter = "";
+		}
+		
+		var pieOpenIncidentsByPriority = {
+			'title': userDept+' Open Incidents by Priority',   
+			'aggregate_field' : 'priority',     
+			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc'+iDeptFilter, 
+			'palette' : 'allBad',   
+			'enable_legend' : true 
+		};
+		
+		var barOpenIncidentsByCategory = {
+			'title': userDept+' Open Incidents by Category',  
+			'aggregate_field' : 'category',  
+			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc'+iDeptFilter, 
+			'palette' : 'catLong',  
+			'enable_legend' : true, 
+			'table_name' : 'incident', 
+			'sortbycount' : true 
+		};
+
+		var barOpenIncidentsBySubcategory = {
+			'title': userDept+' Open Incidents by Subcategory',  
+			'aggregate_field' : 'subcategory',  
+			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc'+iDeptFilter, 
+			'palette' : 'catLong',  
+			'enable_legend' : true, 
+			'table_name' : 'incident', 
+			'sortbycount' : true 
+		};
+		
+		var barOpenRequestsByCategory =  {
+			'title': userDept+' Open Service Requests by Category',  
+			'aggregate_field' : 'category',  
+			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHSer'+iDeptFilter, 
+			'palette' : 'catLong',  
+			'enable_legend' : true, 
+			'table_name' : 'incident', 
+			'sortbycount' : true 
+		};
+		
+		var barOpenRequestsBySubcategory =  {
+			'title': userDept+' Open Service Requests by Subcategory',  
+			'aggregate_field' : 'subcategory',  
+			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHSer'+iDeptFilter, 
+			'palette' : 'catLong',  
+			'enable_legend' : true, 
+			'table_name' : 'incident', 
+			'sortbycount' : true 
+		};
+		
+
+		var barOpenRequestsByItem = {
+			'title': userDept+' Open Catalog Requests by Item',          
+			'aggregate_field' : 'cat_item.name',     
+			'aggregate_filter' : 'active=true'+rDeptFilter, 
+			'palette' : 'allBad',   
+			'enable_legend' : true, 
+			'table_name' : 'sc_req_item', 
+			'sortbycount' : true 
+		};
+		
+		var barTopRequestors = {
+			'title': userDept+' Top Requestors Past 90 Days',  
+			'aggregate_field' : 'caller_id.name',  
+			'aggregate_filter' : 'sys_created_onRELATIVEGE@dayofweek@ago@90'+iDeptFilter, 
+			'palette' : 'catLong',  
+			'enable_legend' : true, 
+			'table_name' : 'incident', 
+			'sortbycount' : true 
+		};				
+		
+		var RSpieOpenIncidentsByPriority = this.incidentPie(pieOpenIncidentsByPriority.aggregate_field, pieOpenIncidentsByPriority.aggregate_filter);
+		var RSbarOpenIncidentsByCategory = this.barScrollData(barOpenIncidentsByCategory.aggregate_field, barOpenIncidentsByCategory.aggregate_filter, barOpenIncidentsByCategory.table_name, barOpenIncidentsByCategory.sortbycount);
+		var RSbarOpenIncidentsBySubcategory = this.barScrollData(barOpenIncidentsBySubcategory.aggregate_field, barOpenIncidentsBySubcategory.aggregate_filter, barOpenIncidentsBySubcategory.table_name, barOpenIncidentsBySubcategory.sortbycount);
+		var RSbarOpenRequestsByCategory = this.barScrollData(barOpenRequestsByCategory.aggregate_field, barOpenRequestsByCategory.aggregate_filter, barOpenRequestsByCategory.table_name, barOpenRequestsByCategory.sortbycount);
+		var RSbarOpenRequestsBySubcategory = this.barScrollData(barOpenRequestsBySubcategory.aggregate_field, barOpenRequestsBySubcategory.aggregate_filter, barOpenRequestsBySubcategory.table_name, barOpenRequestsBySubcategory.sortbycount);
+		var RSbarOpenRequestsByItem = this.barScrollData(barOpenRequestsByItem.aggregate_field, barOpenRequestsByItem.aggregate_filter, barOpenRequestsByItem.table_name, barOpenRequestsByItem.sortbycount);
+		var RSbarTopRequestors = this.barScrollData(barTopRequestors.aggregate_field, barTopRequestors.aggregate_filter, barTopRequestors.table_name, barTopRequestors.sortbycount);
+		var RSagingSummary = this.aggAgingData(userDept);
+		
+		var realDept;
+		var gra = new GlideRecord('cmn_department');
+		gra.addQuery('name', userDept);
+		gra.query();
+		if (gra.next()) {
+			realDept = gra.sys_id;
+		}
+		
+		function _addCacheRec(qName, qRes, qDept) {
+			var gra = new GlideRecord('x_saico_eppersona_query_cache_table');
+			gra.addQuery('department', qDept);
+			gra.addQuery('query_name', qName);
+			gra.query();
+			
+//			if (gra.getRowCount() < 1) {
+//				gra.initialize(); 
+//				gra.query_name = qName; 
+//				gra.query_result = JSON.stringify(qRes); 
+//				gra.department = qDept; 
+//				gra.insert();				
+//			} else {
+				gra.next();
+				gra.query_name = qName;
+				gra.department = qDept;
+				gra.query_result = JSON.stringify(qRes);
+				gra.update();
+//			}
+		}
+		
+		_addCacheRec('pieOpenIncidentsByPriority', RSpieOpenIncidentsByPriority, realDept);
+		_addCacheRec('barOpenIncidentsByCategory', RSbarOpenIncidentsByCategory, realDept);
+		_addCacheRec('barOpenIncidentsBySubcategory', RSbarOpenIncidentsBySubcategory, realDept);
+		_addCacheRec('barOpenRequestsByCategory', RSbarOpenRequestsByCategory, realDept);
+		_addCacheRec('barOpenRequestsBySubcategory', RSbarOpenRequestsBySubcategory, realDept);
+		_addCacheRec('barOpenRequestsByItem', RSbarOpenRequestsByItem, realDept);
+		_addCacheRec('barTopRequestors', RSbarTopRequestors, realDept);
+		_addCacheRec('agingSummary', RSagingSummary, realDept);
+	
+	
+	},
+	
+	
+	
+	
+	// Method retrieves aggregate incident
+	// creation counts, grouped by contact type
+	// aggregated by week, for past 90 days
+	incidentsByContactType: function() {
+		var au = new global.ArrayUtil();
+		
+		var ga = new GlideAggregate('incident');
+		ga.addEncodedQuery("category!=^sys_created_onRELATIVEGE@dayofweek@ago@90");
+		ga.addTrend('sys_created_on', 'Week'); 
+		ga.addAggregate('COUNT'); 
+		ga.groupBy('contact_type');
+		ga.orderBy('timeref');
+		ga.query();
+		
+		
+		var sRez = [];
+		var tRez = {};
+		var cTypes = [];
+		var weeks = [];
+		
+		var ct, we, cn; 
+		while (ga.next()) {
+			ct = ga.getDisplayValue('contact_type');
+			we = parseInt(ga.getValue('timeref').split("/")[0]);
+			cn = parseInt(ga.getAggregate('COUNT'));
+			
+			if (!au.contains(cTypes, ct)) cTypes.push(ct);
+			if (!au.contains(weeks, we)) weeks.push(we);
+			
+			sRez.push({
+				"cType": ct,
+				"week": we,
+				"conCnt": cn
+			});		
+		}
+		
+		weeks.sort(function(a, b){return a - b;});
+		
+		var x, l = weeks.length;
+		tRez['serCats'] = [];
+		for (x = 0; x < l; x++) {
+			tRez.serCats.push("Week: "+weeks[x]);
+		}
+		
+		l = cTypes.length;
+		tRez['serDat'] = [];
+		for (x = 0; x < l; x++) {
+			tRez.serDat.push({
+				"name"  : cTypes[x],
+				"data"  : this._populateArrayForType(sRez, weeks, cTypes[x]),
+				"color" : this.getCategoryPalette()[x]
+			});
+		}
+		
+		return tRez;
+	},
+	
+	_populateArrayForType: function(full, weeks, type) {
+		var x, y, l, wl;
+		l = full.length;
+		wl = weeks.length;
+		var datArr = [];
+		
+		for (x = 0; x < wl; x++) {
+			datArr.push(this._findCntByTypeWeek(full, "cType", type, "week", weeks[x]));
+		}
+		return datArr;
+	},
+	
+	_findCntByTypeWeek: function (array, key1, val1, key2, val2) {
+		for (var i = 0; i < array.length; i++) {
+			if (array[i][key1] === val1 && array[i][key2] === val2) {
+				return array[i].conCnt;
+			}
+		}
+		return 0;
+	},
+	
+    type: 'SSPChartUtils'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-07-14 14:59:29</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>518db6bcdb4e981036d27e09af96191e</sys_id>
+        <sys_mod_count>43</sys_mod_count>
+        <sys_name>SSPChartUtils</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sys_script_include_518db6bcdb4e981036d27e09af96191e</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-12-17 22:02:53</sys_updated_on>
+    </sys_script_include>
+</record_update>

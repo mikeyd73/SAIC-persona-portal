@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>kb</category>
+        <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.transclude:last-child {
+  padding-bottom: 10px;
+}
+
+.list-group {
+ 	margin-bottom: 0px; 
+}
+
+.list-group-item {
+    padding: 0;
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 0px;
+}
+
+.list-group-item:last-child {
+	margin-bottom: 0px;
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .panel-body .list-group .list-group-item .glyphicon-star {
+    color: windowText !important;
+  }
+}
+
+.kb-star-on {
+  color: $fav-star-color !important;
+  text-shadow: $fav-star-outline;
+}
+
+.kb-star-off {
+  color: $fav-star-color-off !important;
+  text-shadow: $fav-star-outline;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>title,color,glyph</field_list>
+        <has_preview>true</has_preview>
+        <id>epsp_kb_top_rated</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>EPSP KB Top Rated</name>
+        <option_schema>[{"name":"max_number","section":"Presentation","label":"Max number","type":"integer"},{"displayValue":"Knowledge Category","name":"kb_category","section":"Data","label":"KB category","type":"reference","value":"kb_category","ed":{"reference":"kb_category"}}]</option_schema>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	data.articles = [];
+	options.title = options.title || gs.getMessage("Top Rated Articles");
+	
+	var z;
+	var knowledge_bases;
+	var sys_id = $sp.getParameter('sys_id');
+	var kb_id = $sp.getParameter('kb_id');
+	var gr = new GlideRecord("kb_knowledge");
+	
+	var foundArticle = false;
+	if (sys_id) { // sys_id specified, try to find an article by sys_id or number
+		gr.addQuery("sys_id", sys_id).addOrCondition("number", sys_id);
+		gr.query();
+		if (gr.next() && gr.canRead()) {
+			// When sys_id matches a kb_record, get KB of the article
+			knowledge_bases = String(gr.getValue('kb_knowledge_base'));
+			foundArticle = true;
+		}
+	}
+	
+	if (!foundArticle) { /* For all other pages this code will get executed. Used on knowledge home page.*/
+		/*If KB is selected display top rated articles only from that KB*/
+		if (kb_id != null)
+			knowledge_bases = String(kb_id);
+		else {
+			/*Get all knowledge bases associated with Portal*/
+			knowledge_bases = String($sp.getKnowledgeBases());
+		}
+	}
+	
+	if (knowledge_bases)
+		z = $sp.getAllKBRecords(knowledge_bases);
+	else //If there are no accessible KBs for logged in user
+		return;
+	
+	z.addQuery("rating", ">", "0");
+	if (options.kb_category)
+		z.addQuery("kb_category", options.kb_category);
+	z.orderByDesc('rating');
+	z.setLimit(options.max_number || 5);
+	z.query();
+	while (z.next()) {
+		if (!z.canRead())
+			continue;
+
+		var a = {};
+		$sp.getRecordValues(a, z, 'short_description,sys_view_count,sys_id,published,rating');
+		a.published_display = z.getDisplayValue("published");
+		data.articles.push(a);
+	}
+})();
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-07-30 12:58:30</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>157b34c6db16d090b83e790aaf961920</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>EPSP KB Top Rated</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sp_widget_157b34c6db16d090b83e790aaf961920</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-07-30 13:04:53</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-{{options.color}} b" ng-if="::(data.articles.length > 0)">
+  <div class="panel-heading"> <h2 class="h4 panel-title">
+    <fa ng-if="::options.glyph.length" name="{{::options.glyph}}" class="m-r-sm" /> {{::options.title}}</h2>
+  </div>
+  <div class="panel-body">
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="a in ::data.articles">
+        <a href="?id=kb_article&sys_id={{::a.sys_id}}">{{::a.short_description}}</a>
+        <div>
+          <span class="sr-only">Article rating - {{::a.rating}}</span>
+          <span uib-rating sp-rating ng-model="::a.rating" max="5" readonly="true" aria-hidden="true" state-on="'fa fa-star kb-star-on'" state-off="'fa fa-star kb-star-off'" />
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+]]></template>
+    </sp_widget>
+</record_update>

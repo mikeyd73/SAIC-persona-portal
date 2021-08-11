@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_saico_eppersona.SSPMyStuffUtil</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description>Utility methods for the SSP MyStuff widget</description>
+        <name>SSPMyStuffUtil</name>
+        <script><![CDATA[var SSPMyStuffUtil = Class.create();
+SSPMyStuffUtil.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+
+
+	getUserDepartment: function() {
+		// var uDept = gs.getUser().getRecord().getDisplayValue('department');
+		var gr= new GlideRecord('sys_user');
+		gr.get(gs.getUserID());
+		return gr.getDisplayValue('department');
+	},
+	
+	getAgencyLinks: function() {
+		var uDept = this.getUserDepartment();
+		var agencyLinks = [];
+		
+		if (uDept == 'OCCR') {
+			agencyLinks = [
+				{"title" : "OCCR Account Request Form", "link" : "/oc?id=sc_cat_item&sys_id=e0f962ec6f4869007d1f35af1e3ee482&sysparm_category=4d948f6d6f0a15007d1f35af1e3ee4ff"},
+			];
+		} else if (uDept == 'CSS') {
+			agencyLinks = [
+				{"title" : "CSS Report an Issue", "link" : "/oc?id=sc_cat_item&sys_id=29941a4edbf4b70036d27e09af961956&sysparm_category=0ec4cf6d6f0a15007d1f35af1e3ee428"},
+				{"title" : "CSS Service Request", "link" : "/oc?id=sc_cat_item&sys_id=bf02f0d7db85fb00b83e790aaf961968&sysparm_category=1f14c3ad6f0a15007d1f35af1e3ee4da"},
+				{"title" : "CSS Security Access Request", "link" : "/oc?id=sc_cat_item&sys_id=56368c84db157f00b83e790aaf961910&sysparm_category=4d948f6d6f0a15007d1f35af1e3ee4ff"},
+			];
+		} else if (uDept == 'OCPW') {
+			agencyLinks = [
+				{"title" : "OCPW Report an Issue", "link" : "/oc?id=sc_cat_item&sys_id=8a2f85cedb9a881036d27e09af961945&sysparm_category=0ec4cf6d6f0a15007d1f35af1e3ee428"},
+				{"title" : "OCPW Service Request", "link" : "/oc?id=sc_cat_item&sys_id=dcd96ea2db5e0c1036d27e09af96198c&sysparm_category=1f14c3ad6f0a15007d1f35af1e3ee4da"},
+			]; 
+		} else if (uDept == 'SSA' || uDept == 'SSA-CFS') {
+			agencyLinks = [
+				{"title" : "SSA Provisioning / Deprovisioning Services", "link" : "/oc?id=sc_cat_item_guide&sys_id=faae0406dbc49410b83e790aaf9619c4&sysparm_category=b1a1736b6fc192007d1f05af1e3ee491"},
+				{"title" : "SSA App & Database Solution Request", "link" : "/oc?id=sc_cat_item&sys_id=45eb5d13db278c90b83e790aaf96192c&sysparm_category=1f14c3ad6f0a15007d1f35af1e3ee4da"},
+			];  
+		} else if (uDept == 'PROB') {
+			agencyLinks = [
+				{"title" : "PROB Report an Issue", "link" : "/oc?id=sc_cat_item&sys_id=66c3b302dba6d05089aa05d2ca9619d6&sysparm_category=0ec4cf6d6f0a15007d1f35af1e3ee428"},
+				{"title" : "PROB Service Request", "link" : "/oc?id=sc_cat_item&sys_id=e53df5b8db079050df8c6154ca9619f9"},
+				{"title" : "Probation User Access Request", "link" : "/oc?id=sc_cat_item&sys_id=ccb21897dbbbac1089aa05d2ca9619b8&sysparm_category=4d948f6d6f0a15007d1f35af1e3ee4ff"},
+			];  
+		} else {
+			agencyLinks = [];
+		}
+		
+		return agencyLinks;
+	},
+	
+	
+	////////////////////////////////////////
+	// Given a named category, this method
+	// returns an array of relevant links.
+	// Can bg configured statically, as below,
+	// but SHOULD BE MODIFIED TO perform database
+	// queries to obtain currently relevant
+	// links.
+	////////////////////////////////////////	
+	getLinkListByCategory: function(category) {
+		
+		var agencyLinks = this.getAgencyLinks();
+			
+		var catLinks = {
+			"agencyLinks" : agencyLinks,
+			"accessLinks" : [
+				{"title" : "Self-Service Password Reset", "link" : "https://www.ocgov.com/home/password", "target" : "_blank"},  //opens in new tab (STRY0063095/INC00531629)
+				{"title" : "Contact Information Update", "link" : "/oc?id=sc_cat_item&sys_id=dcedc6f5db7f88d0b83e790aaf96197e&sysparm_category=4d948f6d6f0a15007d1f35af1e3ee4ff"},
+				{"title" : "Provisioning / Deprovisioning Services", "link" : "/oc?id=sc_cat_item_guide&sys_id=88e17afd6fbc9200fa79d5432e3ee437&sysparm_category=b1a1736b6fc192007d1f05af1e3ee491"},
+				{"title" : "County Badge Access Request", "link" : "/oc?id=sc_cat_item&sys_id=15a53ec7db90049036d27e09af9619e3&sysparm_category=e3977ea7f4c38100e5184466c62a5b14"},
+				{"title" : "Physical Security Service Request", "link" : "/oc?id=sc_cat_item&sys_id=6f87fe0bdb90049036d27e09af961969&sysparm_category=e3977ea7f4c38100e5184466c62a5b14"},
+				{"title" : "HR Systems Service Request", "link" : "/oc?id=sc_cat_item&sys_id=d25a85a2dbf9a300b83e790aaf9619be&sysparm_category=98360fad6f0a15007d1f35af1e3ee44f"},
+				{"title" : "Add End User Account", "link" : "/oc?id=sc_cat_item&sys_id=32d7d46a6f2d11007d1f35af1e3ee47d&sysparm_category=4d948f6d6f0a15007d1f35af1e3ee4ff"},
+				{"title" : "Remove End User Account", "link" : "/oc?id=sc_cat_item&sys_id=fae876b46f7991007d1f35af1e3ee4ba&sysparm_category=4d948f6d6f0a15007d1f35af1e3ee4ff"},
+				{"title" : "Local Administrator Account Authorization", "link" : "/oc?id=sc_cat_item&sys_id=71a2ac9ddb56430036d27e09af9619de&sysparm_category=4d948f6d6f0a15007d1f35af1e3ee4ff"},
+			],
+
+			"desktopLinks" : [
+				{"title" : "Phone Service Request", "link" : "/oc?id=sc_cat_item&sys_id=9bf5400edb92bf0036d27e09af9619f4&sysparm_category=d1c643ed6f0a15007d1f35af1e3ee4db"},
+				{"title" : "Phone Name Change Request", "link" : "/oc?id=sc_cat_item&sys_id=0e19d635db6f7300b83e790aaf96190d&sysparm_category=d1c643ed6f0a15007d1f35af1e3ee4db"},
+				{"title" : "Desktop Hardware Request", "link" : "/oc?id=sc_cat_item&sys_id=1e0269406f6395007d1f35af1e3ee4ae&sysparm_category=0213927b6fdf55007d1f35af1e3ee4c7"},
+				{"title" : "Desktop Software Request", "link" : "/oc?id=sc_cat_item&sys_id=bb18b6ac6fa156007d1f05af1e3ee454&sysparm_category=0213927b6fdf55007d1f35af1e3ee4c7"},
+			],
+			
+			"itOpsLinks" : [
+				{"title" : "Cabling Service Request", "link" : "/oc?id=sc_cat_item&sys_id=d6828027db87234036d27e09af96193e&sysparm_category=d1c643ed6f0a15007d1f35af1e3ee4db"},
+				{"title" : "Network Service Request", "link" : "/oc?id=sc_cat_item&sys_id=3cd5567ddbebef40b83e790aaf961935&sysparm_category=d1c643ed6f0a15007d1f35af1e3ee4db"},
+				{"title" : "Security Service Request", "link" : "/oc?id=sc_cat_item&sys_id=0556d0726ff552007d1f05af1e3ee4f1&sysparm_category=d1c643ed6f0a15007d1f35af1e3ee4db"},
+				{"title" : "Immediately Run Job", "link" : "/oc?id=sc_cat_item&sys_id=4f632bc06f3591007d1f35af1e3ee416&sysparm_category=02e50bad6f0a15007d1f35af1e3ee474"},
+				{"title" : "Immediately Run Multiple Consecutive Jobs", "link" : "/oc?id=sc_cat_item&sys_id=fd7ef0d86f3591007d1f35af1e3ee4f3&sysparm_category=02e50bad6f0a15007d1f35af1e3ee474"},
+				{"title" : "Schedule Multiple Consecutive Jobs", "link" : "/oc?id=sc_cat_item&sys_id=3f6847d46f7591007d1f35af1e3ee4f1&sysparm_category=02e50bad6f0a15007d1f35af1e3ee474"},
+				{"title" : "Enterprise Storage Backup/Restore", "link" : "/oc?id=sc_cat_item&sys_id=6dfca8256fe51100a743c6012e3ee460&sysparm_category=2ec5cb6d6f0a15007d1f35af1e3ee4a0"},
+				{"title" : "Database Consultation", "link" : "/oc?id=sc_cat_item&sys_id=1fadda026f31d1007d1f35af1e3ee4d9&sysparm_category=b7f58bad6f0a15007d1f35af1e3ee4ee"},
+				{"title" : "Database Data Changes", "link" : "/oc?id=sc_cat_item&sys_id=fc65ed5b6fc655007d1f35af1e3ee4c8&sysparm_category=b7f58bad6f0a15007d1f35af1e3ee4ee"},
+			],
+			
+			"mainLinks" : [
+				{"title" : "Password Reset", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Timecard Assistance", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Report an Issue", "link" : "/upssp?id=sc_cat_item_legacy&sys_id=6f6652ea2bbebd00979e1ee119da156e"},
+				{"title" : "Mobile Devices & Access", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Agency Directory", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"}
+			],
+
+			"modernLinks" : [
+				{"title" : "Coming Soon...", "link" : "/oc?id=sc_category&sys_id=4d948f6d6f0a15007d1f35af1e3ee4ff&catalog_id=-1"},
+				{"title" : "Also Coming Soon...", "link" : "/oc?id=sc_category&sys_id=1f14c3ad6f0a15007d1f35af1e3ee4da&catalog_id=-1"},
+				{"title" : "Possibly Later On...", "link" : "/oc?id=sc_category&sys_id=0ec4cf6d6f0a15007d1f35af1e3ee428&catalog_id=-1"},
+			],
+			
+		};
+		
+		return catLinks[category];
+		
+	},
+	
+	
+	
+    type: 'SSPMyStuffUtil'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-07-14 14:57:33</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>81fc3e7cdb4e981036d27e09af9619fe</sys_id>
+        <sys_mod_count>44</sys_mod_count>
+        <sys_name>SSPMyStuffUtil</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sys_script_include_81fc3e7cdb4e981036d27e09af9619fe</sys_update_name>
+        <sys_updated_by>adminles</sys_updated_by>
+        <sys_updated_on>2021-06-22 22:46:41</sys_updated_on>
+    </sys_script_include>
+</record_update>

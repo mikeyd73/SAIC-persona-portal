@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="EPSP OC KB News">9ee35202db1ed090b83e790aaf96193e</child>
+        <cloned>2018-04-03 14:03:07</cloned>
+        <last_validated>2018-04-03 14:03:07</last_validated>
+        <parent display_value="KB News">ad2326a45b110200e23dc7ad31f91a1e</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;kb&lt;/category&gt;&lt;client_script/&gt;&lt;controller_as/&gt;&lt;css/&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list&gt;title,color&lt;/field_list&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id/&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;KB News&lt;/name&gt;&lt;option_schema&gt;[{"name":"max_number","section":"Presentation","label":"Max number","type":"integer"},{"displayValue":"Knowledge Category","name":"kb_category","section":"Data","label":"KB category","type":"reference","value":"kb_category","ed":{"reference":"kb_category"}}]&lt;/option_schema&gt;&lt;public&gt;true&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[var t = data;
+var z = new GlideRecord('kb_knowledge');
+var kbCat = options.kb_category || "0a86f3cbff0221009b20ffffffffff81";
+z.addQuery('kb_category', kbCat);
+z.addQuery('workflow_state', 'published');
+z.addQuery('valid_to', '&gt;=', (new GlideDate()).getLocalDate().getValue());
+z.orderByDesc('published');
+z.setLimit(options.max_number || 5);
+z.query();
+t.rowCount = z.getRowCount();
+t.articles = [];
+t.title = options.title || gs.getMessage("News");
+
+while (z.next()) {
+  var a = {};
+  a.short_description = z.getValue('short_description');
+  a.sys_view_count = z.getValue('sys_view_count');
+  a.sys_id = z.getValue('sys_id');
+  a.published = z.getValue('published');
+  a.published_display = gs.getMessage("Published {0}", z.getDisplayValue('published'));
+  t.articles.push(a);
+}
+]]&gt;&lt;/script&gt;&lt;servicenow&gt;true&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2015-07-13 22:17:57&lt;/sys_created_on&gt;&lt;sys_customer_update&gt;false&lt;/sys_customer_update&gt;&lt;sys_id&gt;ad2326a45b110200e23dc7ad31f91a1e&lt;/sys_id&gt;&lt;sys_mod_count&gt;46&lt;/sys_mod_count&gt;&lt;sys_name&gt;KB News&lt;/sys_name&gt;&lt;sys_package display_value="Service Portal - Core" source="com.glide.service-portal"&gt;1fd0b0cbdbc70700987e7e09af96198d&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_replace_on_upgrade&gt;false&lt;/sys_replace_on_upgrade&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_ad2326a45b110200e23dc7ad31f91a1e&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2017-08-24 20:30:26&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div ng-if="data.articles.length &gt; 0" class="panel panel-{{::options.color}} b"&gt;
+  &lt;div class="panel-heading"&gt;
+    &lt;h4 class="panel-title"&gt;{{::data.title}}&lt;/h4&gt;
+  &lt;/div&gt;
+
+  &lt;div class="panel-body"&gt;
+    &lt;div ng-repeat="a in data.articles" style="margin-bottom: 1em;"&gt;
+      &lt;a href="?id=kb_article&amp;sys_id={{::a.sys_id}}"&gt;{{::a.short_description}}&lt;/a&gt;
+      &lt;div&gt;
+        &lt;span title="{{::a.published_display}}"&gt;
+          &lt;glyph sn-char="calendar" /&gt;
+          &lt;sn-day-ago date="a.published"/&gt;
+        &lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-07-30 19:24:58</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>e2e35282db1ed090b83e790aaf9619c6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>9ee35202db1ed090b83e790aaf96193e</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_e2e35282db1ed090b83e790aaf9619c6</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-07-30 19:24:58</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

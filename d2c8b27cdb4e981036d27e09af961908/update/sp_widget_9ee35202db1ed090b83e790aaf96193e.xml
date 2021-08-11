@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {  /* widget controller */  var c = this;}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.newsbox {&#13;
+  height: 250px;&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>title,color</field_list>
+        <has_preview>false</has_preview>
+        <id>epsp_oc_kb_news</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>EPSP OC KB News</name>
+        <option_schema>[{"name":"max_number","section":"Presentation","label":"Max number","type":"integer"},{"displayValue":"Knowledge Category","name":"kb_topic","section":"Data","label":"KB topic","type":"string","value":"kb_category","ed":{"reference":"kb_category"}},{"displayValue":"Knowledge Base","name":"kb_knowledge_base","section":"Data","label":"Knowledge Base","type":"reference","value":"kb_knowledge_base","ed":{"reference":"kb_knowledge_base"}},{"hint":"Number of seconds needed times 1000","name":"timing_delay","section":"Presentation","default_value":"3000","label":"Scroll Timing in 1/1000ths of a second","type":"integer"}]</option_schema>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[var t = data;
+
+/* --Settings-- */
+data.interval = options.timing_delay || 3000;
+data.direction = 'up'; // 'up' or 'down'
+data.line_height = 64;
+data.num_lines = 3;
+
+
+var z = new GlideRecord('kb_knowledge');
+//var kbCat = options.kb_category || "0a86f3cbff0221009b20ffffffffff81";
+
+if (options.kb_knowledge_base != "")
+	z.addQuery('kb_knowledge_base', options.kb_knowledge_base)
+if (options.kb_topic != "") 
+	z.addQuery('topic', options.kb_topic);
+z.addQuery('workflow_state', 'published');
+z.addQuery('valid_to', '>=', (new GlideDate()).getLocalDate().getValue());
+z.orderByDesc('published');
+z.query();
+t.rowCount = z.getRowCount();
+t.articles = [];
+t.title = options.title || gs.getMessage("News");
+
+if (t.rowCount < (options.max_number || 5)){
+	data.height = (data.line_height - 1 ) * t.rowCount;
+}else{
+	data.height = (data.line_height - 1 ) * (options.max_number || 5);
+}
+
+while (z.next()) {
+  var a = {};
+  a.short_description = z.getValue('short_description');
+  a.sys_view_count = z.getValue('sys_view_count');
+  a.sys_id = z.getValue('sys_id');
+  a.published = z.getDisplayValue('published');
+  a.published_display = gs.getMessage("Published {0}", z.getDisplayValue('published'));
+  t.articles.push(a);
+}
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-07-30 19:24:58</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>9ee35202db1ed090b83e790aaf96193e</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>EPSP OC KB News</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sp_widget_9ee35202db1ed090b83e790aaf96193e</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-07-30 19:34:25</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-{{::options.color}} b">
+  <div class="panel-heading">
+    <h2 class="h4 panel-title">{{::data.title}}</h2>
+  </div>
+
+  
+  <div sp-ticker timing="{{data.interval}}" direction="{{data.direction}}" class="list-group">
+      <a ng-href="?id=kb_article&sys_id={{::a.sys_id}}" ng-repeat="a in data.articles" class="list-group-item" >
+        <span style="color: #428bca" >{{::a.short_description}}</span>
+        <br>
+        <span title="{{::a.published_display}}">
+          <glyph sn-char="calendar" />
+          {{a.published}}
+        </span>
+      </a>
+  </div>
+  
+
+   <style>
+    [sp-ticker].active {
+      display: block;
+      height: {{data.height}}px;
+      overflow-y: hidden
+    }
+    [sp-ticker] a {
+      //height: {{data.line_height}}px;
+      overflow: hidden;
+      transition: opacity 0.5s ease, margin 0.5s ease;
+      //white-space: nowrap;
+    }
+    [sp-ticker] a.fade-out {
+      opacity: 0;
+    }
+    [sp-ticker] a.minus-margin-top {
+      margin-top: -{{data.line_height}}px;
+    }
+  </style>
+  
+</div>]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($http, $scope, $rootScope, spUtil, $window, $timeout) {
+  /* widget controller */
+  var c = this;
+	
+	
+	
+	/**
+	// Event handlers for each of the above events
+	$scope.$on('sspHelpClick', function(event,data) { 
+		//spUtil.addTrivialMessage("I heard a click on 'Help'!");
+		c.data.panelTitle = "Get Help From...";
+		c.data.currentMode = 0;
+	});
+
+	$scope.$on('sspServicesClick', function(event,data) { 
+		//spUtil.addTrivialMessage("I heard a click on 'Services'!");
+		c.data.panelTitle = "Choose Products & Services From...";
+		c.data.currentMode = 1;
+	});
+	
+	$scope.$on('sspAnswersClick', function(event,data) { 
+		//spUtil.addTrivialMessage("I heard a click on 'Answers'!");
+		c.data.panelTitle = "Find Answers About...";
+		c.data.currentMode = 2;
+	});
+	
+	**/
+	
+	
+	
+	$scope.setSelected = function(){
+		//c.data.currentCategory = 0;		
+		$rootScope.$broadcast('sspCategorySelect', {
+			"category" : c.data.svcCategories[c.data.currentCategory],
+			"mode" : (c.data.currentMode >= 0) ? c.data.svcModes[c.data.currentMode] : "", 
+			"icon": c.data.btnList[c.data.currentCategory].icon
+		});
+	};
+	
+	
+	// Functions that emit events
+	c.onCatClick = function(catIndex, event) {
+		//RES::
+		$('#ssp_id_' + c.data.parent_id + ' a.btn.color-ssp-secondary').removeClass('ssp-selected');
+		if(event.target.nodeName == "I" || event.target.nodeName == "SPAN"){
+			//get parent
+			$( $(event.target).parent() ).addClass('ssp-selected');
+		}else{
+			//clicked on the anchor
+			$(event.target).addClass('ssp-selected');
+		}
+		
+		
+		c.data.currentCategory = catIndex;
+		var payload = {
+			"category" : c.data.svcCategories[catIndex],
+			"mode" : (c.data.currentMode >= 0) ? c.data.svcModes[c.data.currentMode] : "",
+			"icon": c.data.btnList[catIndex].icon
+		};
+		$rootScope.$broadcast('sspCategorySelect', payload);
+		c.data.panelTitle = c.data.svcCategories[catIndex];
+		console.log("Category selected:"+JSON.stringify(payload));
+	};
+	
+	c.launch = function() {
+		
+		var w = window.innerWidth;
+		var h = window.innerHeight;
+		
+		console.log(w + ":" + h);
+		
+		var calcx = w;
+		var calcy = h;
+		
+		console.log(calcx + ":" + calcy);
+		
+		window.open('https://saicprod.espressive.com/app/barista/?phrase=&submit=y', 'barista', 'height=736,width=460,top='+calcy+',left='+calcx+',location=no,scrollbars=no,status=no,titlebar=no,toolbar=no')
+	};
+	
+	angular.element(document).ready(function(){
+		$timeout(function(){
+			$scope.setSelected();
+		}, 100);
+	});
+	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/* SSP HP MASTER */
+@media only screen and (max-width : 991px) {
+	.panels-container {
+ 	  min-height : 240px;
+	}
+}
+
+@media only screen and (min-width : 992px) {
+	.panels-container {
+ 	  min-height : 240px;
+	}
+}
+
+@media only screen and (max-width : 700px) {
+	.ssp-panel-widget {
+ 	  height : 95%;
+	}
+}
+
+.panel-heading {
+    padding: 10px 15px 0;
+  	background-color: $panel-heading-bg-color;
+  	color: $panel-heading-text-color;
+}
+
+.ssp-custom-widget-header {
+	font-size: 2rem;
+}
+
+.panel-heading-master {
+	min-height: 68px;
+	text-align: center; 
+	padding-top: 20px
+}
+
+.panel-body-master {
+	min-height: 285px !important;
+  padding: 15px;
+  padding-top: 20px;
+}
+
+
+/* Custom Widget Button */
+.ssp-btn-widget {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.ssp-btn-widget-icon { 
+	float: left;
+	padding-right: 10px;
+	width: 40px;
+	position: relative;
+}
+
+.ssp-btn-txt { 
+ 	float: center;
+	position: relative;
+}
+
+/* Secondary Color Buttons */
+/* Edit $color-ssp-secondary to customize button color */
+
+//$color-ssp-secondary: $brand-secondary;
+//$color-ssp-secondary-hover: darken(desaturate(adjust-hue($color-ssp-secondary, 1), 0.42%), 16.67);
+
+.color-ssp-secondary {
+	color: #FFFFFF;
+	background-color: $brand-info;
+	border-color: $brand-info;
+}
+.color-ssp-secondary:focus, .color-ssp-secondary.focus {
+	color: $color-ssp-hover-text-color;
+	background-color: $brand-primary;
+	border-color: $brand-primary;
+}
+.color-ssp-secondary:hover {
+	color: $color-ssp-hover-text-color;
+	background-color: $brand-primary;
+	border-color: $brand-primary;
+}
+.color-ssp-secondary:active, .color-ssp-secondary.active, .open &gt; .color-ssp-secondary.dropdown-toggle {
+	color: $color-ssp-hover-text-color;
+	background-color: $brand-primary;
+	border-color: $brand-primary;
+}
+.color-ssp-secondary:active:hover, .color-ssp-secondary:active:focus, .color-ssp-secondary.focus:active, .color-ssp-secondary.active:hover, .color-ssp-secondary.active:focus, .color-ssp-secondary.active.focus, .open &gt; .color-ssp-secondary.dropdown-toggle:hover, .open &gt; .color-ssp-secondary.dropdown-toggle:focus, .open &gt; .color-ssp-secondary.dropdown-toggle.focus {
+	color: $color-ssp-hover-text-color;
+	background-color: $brand-primary;
+	border-color: $brand-primary;
+}
+.color-ssp-secondary:active, .color-ssp-secondary.active, .open &gt; .color-ssp-secondary.dropdown-toggle {
+	background-image: none;
+}
+
+// green Button //
+.color-ssp-default {
+  color: $color-ssp-text-color;
+	background-color: $color-ssp-default-color;
+	border-color: $color-ssp-default-color;
+}
+/*
+.color-ssp-help:hover {
+	background-color: darken(desaturate(adjust-hue($brand-success, 1), 0.42%), 16.67);
+	border-color: darken(desaturate(adjust-hue($brand-success, 1), 0.42%), 16.67);
+}
+*/
+// green Button //
+.color-ssp-help {
+	color: $color-ssp-text-color;
+	background-color: $color-ssp-green;
+	border-color: $color-ssp-green;
+}
+.color-ssp-help:focus, 
+.color-ssp-green.focus {
+	color: $color-ssp-hover-text-color;
+	background-color: $color-ssp-w-focus-bg-color;
+	border-color: $color-ssp-w-focus-border-color;
+}
+.color-ssp-help:hover {
+	color: $color-ssp-hover-text-color;
+	background-color: $color-ssp-w-hover-bg-color;
+	border-color: $color-ssp-w-hover-border-color;
+}
+.color-ssp-help:active, 
+.color-ssp-green.active, 
+.open &gt; .color-ssp-green.dropdown-toggle {
+	color: $color-ssp-hover-text-color;
+	background-color: $color-ssp-w-hover-bg-color;
+	border-color: $color-ssp-w-hover-border-color;
+}
+.color-ssp-help:active:hover, 
+.color-ssp-help:active:focus, 
+.color-ssp-help.focus:active, 
+.color-ssp-help.active:hover, 
+.color-ssp-help.active:focus, 
+.color-ssp-green.active.focus, 
+.open &gt; .color-ssp-green.dropdown-toggle:hover, 
+.open &gt; .color-ssp-green.dropdown-toggle:focus, 
+.open &gt; .color-ssp-green.dropdown-toggle.focus {
+	color: $color-ssp-hover-text-color;
+	background-color: $color-ssp-w-hover-bg-color;
+	border-color: $color-ssp-w-hover-border-color;
+}
+
+/* END SSP HP MASTER */
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>ssp_hp_master</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>SSP HP Master</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	var msu = new SSPMyStuffUtil();
+	
+	data.parent_id = $sp.getValue('sys_id');
+	
+	data.hasAgencyLinks = false;
+	//start button list
+		data.btnList = [
+		{
+			text: 'Account and Facility Access', 
+			icon: 'fa-key'
+		},
+		{
+			text: 'Desktop & Phone Requests', 
+			icon: 'fa-laptop'
+		},
+		{
+			text: 'IT Operations', 
+			icon: 'fa-gears'
+		},
+		{
+			text: 'Modern Workplace Support', 
+			icon: 'fa-mobile-phone'
+		}	
+	];
+	
+	//set categories
+	data.svcCategories = [
+		"Account and Facility Access",
+		"Desktop and Phone",
+		"IT Operations",
+		"Modern Workplace"
+	];
+	
+	var agencyLinks = msu.getAgencyLinks();
+	if (agencyLinks && agencyLinks.length > 0) {
+		data.hasAgencyLinks = true;
+		//add agency object
+		data.btnList.unshift({text: 'Agency Specific Requests', icon: 'fa-building-o'});	
+		data.svcCategories.unshift("Agency Specific");
+	}
+	
+
+	
+	data.panelTitle = "Our Services";
+	
+	
+	data.svcModes = [
+		"Help",
+		"Services",
+		"Answers"
+	];
+	
+	data.currentCategory = 0;
+	/*
+	if (data.hasAgencyLinks) {
+		data.currentCategory = 0;
+	} else {
+		data.currentCategory = 1;
+	}
+	*/
+	data.currentMode = -1;
+
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-08-03 13:15:29</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>99b5e593db16541089aa05d2ca961926</sys_id>
+        <sys_mod_count>92</sys_mod_count>
+        <sys_name>SSP HP Master</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sp_widget_99b5e593db16541089aa05d2ca961926</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-12-18 00:13:22</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default b" ng-attr-id="ssp_id_{{ c.data.parent_id }}">  
+  <div class="panel-heading panel-heading-master">
+    <h2 class="panel-title ssp-custom-widget-header">Service Categories</h2>
+  </div>  
+  <!-- ng-init="c.onCatClick(c.data.currentCategory)" -->
+  <div  class="panel-body-master">  
+
+    <div class="col-sm-6 col-md-7 col-lg-6">
+      
+      <div class="ssp-button" ng-repeat="item in c.data.btnList">
+        <a class="btn ssp-btn-widget color-ssp-secondary btn-block ng-binding" role="button" 
+           ng-class="{'ssp-selected': $index===0}" 
+           ng-click="c.onCatClick($index, $event)">
+          <i class="fa fa-stack-1x fa-inverse ssp-btn-widget-icon" ng-class="item.icon"></i>{{ item.text }}</a>  
+      </div>
+      
+      
+     <!-- <div ng-if="c.data.hasAgencyLinks" class="ssp-button">
+        <a class="btn ssp-btn-widget color-ssp-secondary btn-block ng-binding" role="button" ng-click="c.onCatClick(0)">
+          <i class="fa fa-building-o fa-stack-1x fa-inverse ssp-btn-widget-icon"></i> Agency Specific Requests</a>  
+      </div>
+      <div class="ssp-button">
+        <a class="btn ssp-btn-widget color-ssp-secondary btn-block ng-binding" role="button" ng-click="c.onCatClick(1)">
+          <i class="fa fa-key fa-stack-1x fa-inverse ssp-btn-widget-icon"></i>
+          <div class="ssp-btn-txt">Account and Facility Access</div></a>  
+      </div>
+      <div class="ssp-button">
+        <a class="btn ssp-btn-widget color-ssp-secondary btn-block ng-binding" role="button" ng-click="c.onCatClick(2)">
+          <i class="fa fa-laptop fa-stack-1x fa-inverse ssp-btn-widget-icon"></i> Desktop &amp; Phone Requests</a>  
+      </div>
+      <div class="ssp-button">
+        <a class="btn ssp-btn-widget color-ssp-secondary btn-block ng-binding" role="button" ng-click="c.onCatClick(3)">
+          <i class="fa fa-gears fa-stack-1x fa-inverse ssp-btn-widget-icon"></i>IT Operations</a>  
+      </div>
+      <div class="ssp-button">
+        <a class="btn ssp-btn-widget color-ssp-secondary btn-block ng-binding" role="button" ng-click="c.onCatClick(4)">
+          <i class="fa fa-mobile-phone fa-stack-1x fa-inverse ssp-btn-widget-icon"></i>Modern Workplace Support</a>  
+      </div>
+      -->
+    </div><!-- col-sm-6 end-->
+    <div class="col-sm-6 col-md-5 col-lg-6">
+      <div ng-if="c.data.currentCategory < 0">
+        <h3 style="text-align: center;">
+          Select a service area for answers and support options.
+        </h3>
+      </div>
+      <div ng-if="c.data.currentCategory >= 0">
+        <span style="font-size: 125%; text-align: center;"><strong>{{c.data.svcCategories[c.data.currentCategory]}}</strong></span>
+        <div>
+          The Enterprise Service Desk provides telephone support 24x7:
+          <ul>
+            <li><strong>(844) 834-2449</strong> or <strong>(714) 4IT-HELP</strong></li>
+            <li><a href="/oc?id=sc_cat_item&sys_id=bf89e7656f291100a743c6012e3ee4c1&sysparm_category=b0e747ed6f0a15007d1f35af1e3ee4af"><b>Report an Issue online</b></a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 style="text-align: center;">Category Links<br/><i class="fa fa-arrow-circle-o-right" style="font-size:2em;"/></h3>
+          
+        </div>
+				
+      </div>
+    </div>
+  </div>     
+</div>]]></template>
+    </sp_widget>
+</record_update>

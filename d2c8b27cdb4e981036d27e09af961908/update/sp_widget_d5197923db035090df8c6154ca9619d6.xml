@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+	
+	// console.log(c.data.rez);
+	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>table, th, td {
+  border: 3px solid #e4e4e4;
+  margin-top: 5px;
+}
+
+th {
+	padding-left: 5px;
+}
+
+.ageHeader {
+	text-align: center;
+  font-size: 1.25em;
+}
+
+.ageTable {
+  margin-top:0.75px;
+  width: 100%;
+  height: 208px;
+}
+
+.bigNumber {
+	text-align: center;
+  font-size: 2.5em;
+}
+
+.tooltipR {
+  position:relative; /* making the .tooltip span a container for the tooltip text */
+  border-bottom:1px solid #000; /* little indicater to indicate it's hoverable */
+}
+
+.tooltipR:before {
+  content: attr(data-text); /* here's the magic */
+  position:absolute;
+  
+  /* vertically center */
+  top:50%;
+  transform:translateY(-50%);
+  
+  /* move to right */
+  left:105%;
+  margin-right:15px; /* and add a small right margin */
+  
+  /* basic styles */
+  width:185px;
+  padding:10px;
+  border-radius:10px;
+  background:$brand-info;
+  color: #fff;
+  text-align:center;
+
+  display:none; /* hide by default */
+}
+
+.tooltipR:hover:before {
+  display:block;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>epsp_aging_summary</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>EPSP Aging Summary</name>
+        <option_schema>[{"hint":"agingSummary","name":"cache_name","section":"other","default_value":"agingSummary","label":"Cache Name","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+		data.userDept = gs.getUser().getPreference('epsp_preferred_department');
+		if (!data.userDept) {
+			var gr= new GlideRecord('sys_user');
+			gr.get(gs.getUserID());
+			data.userDept = gr.getDisplayValue('department');
+		}
+	
+		var scu = new SSPChartUtils();
+		data.rez = scu.aggAgingData(data.userDept);
+
+		data.hasITIL = gs.getUser().hasRole('itil');
+		if (!data.hasITIL) {
+			data.rez.incAge30Link = "#";
+			data.rez.incSer30Link = "#";
+			data.rez.reqReq30Link = "#";
+		}
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-09-10 16:05:44</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>d5197923db035090df8c6154ca9619d6</sys_id>
+        <sys_mod_count>117</sys_mod_count>
+        <sys_name>EPSP Aging Summary</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sp_widget_d5197923db035090df8c6154ca9619d6</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-11-23 23:36:25</sys_updated_on>
+        <template><![CDATA[<div>
+	<table class="ageTable">
+  	<tr>
+      <th class="ageHeader" colspan="2">{{c.data.userDept}} Tickets Open Over 30 Days</th>
+    </tr>
+    <tr>
+      <th>
+          <span class="tooltipR" 
+                data-text="An unplanned disruption, or impending disruption, to IT equipment or an IT service.">
+            Incidents:
+        </span>
+      </th>
+      <td class="bigNumber"><a href="{{c.data.rez.incAge30Link}}">{{c.data.rez.incAge30}}</a></td>
+    </tr>
+    <tr>
+      <th>
+        <span class="tooltipR" 
+              data-text="A request for access to a service or a minor change or addition that is low-risk and occurs frequently. IMACs (install, move, add, change) are a type of Service Request.">
+        Service Requests:
+        </span>
+      </th><td class="bigNumber"><a href="{{c.data.rez.incSer30Link}}">{{c.data.rez.incSer30}}</a></td>
+    </tr>
+    <tr>
+      <th>
+        <span class="tooltipR" 
+              data-text="A request for an IT-specific business or technology service that is described in the online Service Catalog.">
+        Catalog Requests:
+        </span>    
+      </th><td class="bigNumber"><a href="{{c.data.rez.reqReq30Link}}">{{c.data.rez.reqReq30}}</a></td>
+    </tr>
+  </table>
+</div>]]></template>
+    </sp_widget>
+</record_update>

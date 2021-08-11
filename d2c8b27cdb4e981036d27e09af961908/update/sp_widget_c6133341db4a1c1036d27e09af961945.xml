@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($http, $scope, $rootScope, spUtil, $window) {
+  /* widget controller */
+  var c = this;
+	
+	c.custer = function() {
+		$window.location.href = "/oc?id=ssp_customizer"
+	};
+	
+	c.updateTemp = function() {
+		var myNewTemp = c.data.selectedTemplate.title;
+		
+		if (myNewTemp == "Legacy") {
+			c.data.myTemplate = "sspLegacyTemplate";
+		} else if (myNewTemp == "Base") {
+			c.data.myTemplate = "sspBaseTemplate";
+		} else if (myNewTemp == "ITIL User") {
+			c.data.myTemplate = "sspITILTemplate";
+		} else if (myNewTemp == "Manager") {
+			c.data.myTemplate = "sspManagerTemplate";
+		} else {
+			c.data.myTemplate = "sspLegacyTemplate";
+		}
+		
+		// Set the preferred homepage for this user on backend
+		$http.get('/api/x_saico_eppersona/client_utils/setUserPrefTemplate?prefHome='+myNewTemp)
+			.then(function(res) {
+			console.log("updateTemp did get called with: "+myNewTemp);
+		 });	
+				
+	}
+	
+	// Listen for the feedback indicator
+	// TODO: should move these to the feedback widget
+	$rootScope.$on('sspGotFeedback', function(event,data) { 
+		spUtil.addTrivialMessage("Thank you for your feedback!");
+	});
+
+	$rootScope.$on('sspGoClassicTemp', function(event,data) { 
+		c.data.selectedTemplate = c.data.templates[0];
+		c.updateTemp();
+	});
+
+	$rootScope.$on('sspGoNewTemp', function(event,data) { 
+		c.data.selectedTemplate = c.data.templates[1];
+		c.updateTemp();
+	});
+
+	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.container-fluid {
+	width: 100%;
+}
+
+
+// Fixed bottom footer
+#holder {
+  min-height: 100%;
+  position:relative;
+  height: 100vh;
+  max-height: calc(100vh - 130px); // Might take header into account
+}
+
+body {
+  padding-bottom: 50px;    /* height of footer */
+}
+
+#footerarea {
+    height: 50px;
+    left: 0;
+    position: absolute;
+    right: 0;
+}
+
+.searchback {
+
+}
+
+.panel-heading {
+  	background-color: #F8F8F8;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>ssp_persona_engine</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Persona Engine</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	
+	// Get a reference to the SSPMegaUtil
+	// utility library;
+	var mu = new SSPMegaUtil();
+	
+	// Get available templates
+	data.templates = mu.getTemplateListing();
+	data.hasITIL = gs.getUser().hasRole('itil');
+	data.isManager = gs.getUser().isMemberOf('Persona - Manager');
+	
+
+	
+	// Determine if user has a preferred homepage template
+	// or provide the default one
+
+	data.ssphPref = gs.getUser().getPreference('epsp_preferred_homepage');
+	if (!data.ssphPref) {
+		data.ssphPref = "Base";
+		if (data.isManager) {
+			data.ssphPref = "Manager";			 
+		} else if (data.hasITIL) {
+			data.ssphPref = "ITIL User";
+		} 
+		gs.getUser().savePreference("epsp_preferred_homepage", data.ssphPref);
+	}
+	
+	// Determine if user wishes to show departmental
+	// summary data and charts.
+	data.prefShowSummary = mu.getUserShowSummary();
+	
+	// Get user-specific stuff
+	// TODO:  move to widgets that actually use this
+	data.userFirst = gs.getUser().getFirstName();
+	data.userTimeZone = gs.getSession().getTimeZoneName();
+	
+	// Retrieve user's preferred widget list, or default
+/**
+	var widgetList = gs.getUser().getPreference('ssp_preferred_widgetlist');
+	data.prefDat = {};
+	if(widgetList) {
+		// console.log("Here's what I got back: "+widgetList);
+		data.prefDat.widgetList = JSON.parse(widgetList);
+	} else {
+		data.prefDat.widgetList = mu.getDefaultWidgetList();
+	}
+**/
+	
+	// Temporary - Hard Code Widget List
+	data.prefDat = {};
+	data.prefDat.widgetList = mu.getDefaultWidgetList();
+	var widgetList = data.prefDat.widgetList;
+	
+	// Load the widget models for all
+	// widgets in the list
+	// TODO: refactor to only load models
+	//       for widgets that will display
+	//       in a given template.
+	data.wd = [];
+	var x, l = data.prefDat.widgetList.length;
+	for (x = 0; x < l; x++) {
+			data.wd.push(
+				$sp.getWidget(data.prefDat.widgetList[x].id, data.prefDat.widgetList[x].options)
+			);		
+	}
+
+	// There are four special widgets that
+	// most templates will load, getting their
+	// models here, just for fun:
+	data.wBigSearch = $sp.getWidget("ssp_main_search_block", {});
+	data.wHPMaster = $sp.getWidget("ssp_hp_master_v2", {});
+  data.wMyStuff = $sp.getWidget("ssp_my_stuff_v2", {});
+	data.wPrefDept = $sp.getWidget("epsp_preferences", {});
+	
+	// Set the current template
+	var ctIdx = mu.getTemplateIndexFromTitle(data.ssphPref, data.templates);
+	data.myTemplate = data.templates[ctIdx].tpName;
+	data.selectedTemplate = data.templates[ctIdx];
+	//RS
+	//console.log(data.wd[13]);
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-07-15 13:31:13</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>c6133341db4a1c1036d27e09af961945</sys_id>
+        <sys_mod_count>56</sys_mod_count>
+        <sys_name>Persona Engine</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sp_widget_c6133341db4a1c1036d27e09af961945</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-12-18 00:09:49</sys_updated_on>
+        <template><![CDATA[<div id="holder">
+
+  <div id="myMainContain" ng-include="c.data.myTemplate"></div>
+
+</div>]]></template>
+    </sp_widget>
+</record_update>

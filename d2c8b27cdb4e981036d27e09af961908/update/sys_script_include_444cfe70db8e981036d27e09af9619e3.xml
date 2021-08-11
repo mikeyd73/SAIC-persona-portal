@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_saico_eppersona.SSPMegaUtil</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description>Utility methods in support of the persona engine</description>
+        <name>SSPMegaUtil</name>
+        <script><![CDATA[var SSPMegaUtil = Class.create();
+SSPMegaUtil.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+	
+	
+	
+	getUserDepartment: function() {
+		// var uDept = gs.getUser().getRecord().getDisplayValue('department');
+		var userPrefDept = gs.getUser().getPreference('epsp_preferred_department');
+		if (!userPrefDept) {
+			var gr= new GlideRecord('sys_user');
+			gr.get(gs.getUserID());
+			return gr.getDisplayValue('department');
+		}
+		return userPrefDept;
+	},
+
+	getUserShowSummary: function() {
+		var userPrefShowSummary = gs.getUser().getPreference('epsp_show_summary');
+		if (!userPrefShowSummary || userPrefShowSummary == "yes") {
+			return true;
+		} else {
+			return false;
+		}	
+	},
+	
+
+	////////////////////////////////////////
+	// Method returns the default list of 
+	// widgets/options for users that have
+	// not already stored a preference
+	///////////////////////////////////////
+	getDefaultWidgetList: function() {
+
+		// Get the timezone of the current user's profile
+		var timeZone = gs.getSession().getTimeZoneName();
+		var userSys = gs.getUser().getID();
+		var userDept = this.getUserDepartment();
+		
+	
+		var footerOptions = {
+			"column_1_header": {
+				"value": "Enterprise Service Desk",
+				"displayValue": "Enterprise Service Desk"
+			},
+			"column_2_header": {
+				"value": "Navigation",
+				"displayValue": "Navigation"
+			},
+			"column_3_header": {
+				"value": "Quick Links",
+				"displayValue": "Quick Links"
+			},
+			"column_4_header": {
+				"value": "Resources",
+				"displayValue": "Resources"
+			}
+		};
+		
+		var ilHelp = {
+			"title" : "Something isn't working properly or is broken",
+			"short_description" : "Get Help and Get Things Fixed",
+			"glyph" : "question-circle",
+			"type" : "URL",
+			"url" : "/oc?id=sc_category&catalog_id=866b692f4fc01340a6bd5f211310c703&sys_id=0ec4cf6d6f0a15007d1f35af1e3ee428",
+			"link_template": "Circle Icon",
+			"color" : "danger",
+		};
+		
+		var ilReq = {
+			"title" : "Request Service",
+			"short_description" : "Browse and Request Service",
+			"glyph" : "bullhorn",
+			"type" : "url",
+			"url" : "/oc?id=sc_category&sys_id=1f14c3ad6f0a15007d1f35af1e3ee4da",
+			"link_template": "Circle Icon",
+			"color" : "warning",
+		};
+		
+		var ilAccess = {
+			"title" : "Get Access",
+			"short_description" : "Make Access and Account Requests and Report Password Related Issues",
+			"glyph" : "key",
+			"type" : "url",
+			"url" : "/oc?id=sc_category&sys_id=4d948f6d6f0a15007d1f35af1e3ee4ff",
+			"link_template": "Circle Icon",
+			"color" : "success",
+		};
+		
+		var ilKnow = {
+			"title" : "Knowledge",
+			"short_description" : "Self-help, FAQs and How-tos",
+			"glyph" : "info-circle",
+			"type" : "url",
+			"url" : "/oc?id=kb_view2&kb_category=&kb_id=25c2ccaedb4cd700b83e790aaf9619d6",
+			"link_template": "Circle Icon",
+			"color" : "info",
+		};
+		
+	
+		var topKBOpts = {
+			"title" : "Top Rated Articles"
+		};
+		
+		var myAppOpts = {
+			"title" : "My Approvals",
+			"portal" : true,
+		};
+		
+		var myIncOpts = {
+			"title" : "Incidents",
+			"table" : "incident",
+			"filter" : "caller_idDYNAMIC"+userSys+"^active=true^EQ",
+			"display_field" : "short_description",
+			"sp_page" : "oc_ticket",
+			"secondary_fields": "number,sys_updated_on",
+			"view": "5daaf5116f2201002265bc226e3ee455",
+			"maximum_entries" : 5,
+		};
+		
+		var byMeIncOpts = {
+			"title" : "My Open Incidents",
+			"table" : "incident",
+			"filter" : "opened_byDYNAMIC"+userSys+"^active=true^EQ",
+			"display_field" : "short_description",
+			"sp_page" : "oc_ticket",
+			"secondary_fields": "number,sys_updated_on",
+			"view": "5daaf5116f2201002265bc226e3ee455",		
+			"maximum_entries" : 5,
+		};
+
+		var slAnnOpts = {
+			"title" : "Announcements",
+			"table" : "kb_knowledge",
+			"filter" : "sys_class_name!=kb_knowledge_block^kb_knowledge_base=f7e9c9574f37c700a6bd5f211310c780^kb_category=666204976f211200fec0358fae3ee4fb",
+			"display_field" : "short_description",
+			"sp_page" : "kb_article",
+			"secondary_fields": "number,sys_updated_on",
+			"panel_body_height": {
+				"value": "180px",
+				"displayValue": "180px"
+			},
+			// "glyph" : "calendar",
+			// "view": "5daaf5116f2201002265bc226e3ee455",		
+			"maximum_entries" : 5,
+		};
+		
+		var annOpts = {
+			"title" : "Announcements",
+			"max_number": 5,
+			"kb_category": '',
+			"knowledge_base": "dfc19531bf2021003f07e2c1ac0739ab",
+			"topic": "News",
+			"kb_topic": "News",
+		};		
+		
+		// Manager Template Chart Options
+		var iDeptFilter = "^caller_id.department.name="+userDept;
+		var rDeptFilter = "^request.requested_for.department.name="+userDept;
+		if (!userDept || userDept == "ALL") {
+			iDeptFilter = "";
+			rDeptFilter = "";
+		}
+		
+		var pieOpenIncidentsByPriority = {
+			'title': userDept+' Open Incidents by Priority',   
+			'aggregate_field' : 'priority',     
+			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc'+iDeptFilter, 
+			'palette' : 'allBad',  
+			'cache_name' : 'pieOpenIncidentsByPriority',
+			'enable_legend' : true 
+		};
+		
+		var barOpenIncidentsByCategory = {
+			'title': userDept+' Open Incidents by Category',  
+			'aggregate_field' : 'category',  
+			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc'+iDeptFilter, 
+			'palette' : 'catLong',  
+			'enable_legend' : true, 
+			'table_name' : 'incident',
+			'cache_name' : 'barOpenIncidentsByCategory',
+			'sortbycount' : true 
+		};
+
+		var barOpenIncidentsBySubcategory = {
+			'title': userDept+' Open Incidents by Subcategory',  
+			'aggregate_field' : 'subcategory',  
+			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc'+iDeptFilter, 
+			'palette' : 'catLong',  
+			'enable_legend' : true, 
+			'table_name' : 'incident', 
+			'cache_name' : 'barOpenIncidentsBySubcategory',
+			'sortbycount' : true 
+		};
+		
+		var barOpenRequestsByCategory =  {
+			'title': userDept+' Open Service Requests by Category',  
+			'aggregate_field' : 'category',  
+			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHSer'+iDeptFilter, 
+			'palette' : 'catLong',  
+			'enable_legend' : true, 
+			'table_name' : 'incident', 
+			'cache_name' : 'barOpenRequestsByCategory',
+			'sortbycount' : true 
+		};
+		
+		var barOpenRequestsBySubcategory =  {
+			'title': userDept+' Open Service Requests by Subcategory',  
+			'aggregate_field' : 'subcategory',  
+			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHSer'+iDeptFilter, 
+			'palette' : 'catLong',  
+			'enable_legend' : true, 
+			'table_name' : 'incident', 
+			'cache_name' : 'barOpenRequestsBySubcategory',
+			'sortbycount' : true 
+		};
+		
+
+		var barOpenRequestsByItem = {
+			'title': userDept+' Open Catalog Requests by Item',          
+			'aggregate_field' : 'cat_item.name',     
+			'aggregate_filter' : 'active=true'+rDeptFilter, 
+			'palette' : 'allBad',   
+			'enable_legend' : true, 
+			'table_name' : 'sc_req_item', 
+			'cache_name' : 'barOpenRequestsByItem',
+			'sortbycount' : true 
+		};
+		
+		var barTopRequestors = {
+			'title': userDept+' Top Requestors Past 90 Days',  
+			'aggregate_field' : 'caller_id.name',  
+			'aggregate_filter' : 'sys_created_onRELATIVEGE@dayofweek@ago@90'+iDeptFilter, 
+			'palette' : 'catLong',  
+			'enable_legend' : true, 
+			'table_name' : 'incident', 
+			'cache_name' : 'barTopRequestors',
+			'sortbycount' : true 
+		};		
+		
+		
+		// Overall Widget List -- TODO, build unique based on Persona tests
+		var widgetList = [
+			{"id" : "epsp_contact_info_update", "options" : {"title": "Contact Information Update", 
+															"showHeading": true,  /* if left blank, defaults to true*/
+															"showMessage": true,  /* if left blank, defaults to true*/
+															"displayMessage": "", /* Text message to be shown */
+															"link": "epsp?id=sc_cat_item&sys_id=dcedc6f5db7f88d0b83e790aaf96197e&sysparm_category=4d948f6d6f0a15007d1f35af1e3ee4ff",
+															"linkText": "" /*defaults to Click Here to Update in all uppercase */}
+																}, //0
+			{"id" : "oc_homepage_search",  "options" : {"title": "Search"}}, //1
+			{"id" : "epsp_icon_link_k17",  "options" : ilHelp}, //2
+			{"id" : "epsp_icon_link_k17",  "options" : ilReq},
+			{"id" : "epsp_icon_link_k17",  "options" : ilAccess},
+			{"id" : "epsp_icon_link_k17",  "options" : ilKnow},
+
+			{"id" : "widget-simple-list", "options" : slAnnOpts},
+			{"id" : "epsp_kb_top_rated", "options" : topKBOpts},
+
+			{"id" : "widget-simple-list", "options" : myIncOpts},
+			{"id" : "oc_requests",        "options" : {}},
+
+			{"id" : "epsp_oc_approvals_2", "options" : myAppOpts},
+			{"id" : "widget-simple-list",  "options" : byMeIncOpts},
+
+			{"id" : "ssp_oc_footer_dynamic", "options" : footerOptions},
+			
+			{"id" : "ssp_bar_scroll",   "dSize" : "Small", "options" : barOpenIncidentsByCategory}, //13
+			{"id" : "ssp_bar_scroll",   "dSize" : "Small", "options" : barOpenIncidentsBySubcategory}, //14
+			{"id" : "ssp_pie_incident", "dSize" : "Small", "options" : pieOpenIncidentsByPriority}, //15
+			{"id" : "ssp_bar_scroll",   "dSize" : "Small", "options" : barOpenRequestsByCategory}, //16
+			{"id" : "ssp_bar_scroll",   "dSize" : "Small", "options" : barOpenRequestsBySubcategory}, //17
+			{"id" : "ssp_bar_scroll",   "dSize" : "Small", "options" : barOpenRequestsByItem}, //18
+			{"id" : "epsp_aging_summary",   "dSize" : "Small", "options" : {'cache_name' : 'agingSummary'}}, //19
+			{"id" : "ssp_bar_scroll",   "dSize" : "Small", "options" : barTopRequestors}, //20
+			{"id" : "epsp_pending_changes", "dSize" : "Small", "options" : {}}, //21
+		];
+		
+		return widgetList;
+	},
+	
+	///////////////////////////////////////
+	// Method returns the list of 
+	// available layout templates
+	///////////////////////////////////////
+	getTemplateListing: function() {
+	
+		var templates = [
+			{"title" : "Legacy", "tpName"     : "sspLegacyTemplate"},
+			{"title" : "Base",   "tpName"     : "sspBaseTemplate"},
+			{"title" : "ITIL User",   "tpName"     : "sspITILTemplate"},
+			{"title" : "Manager",   "tpName"     : "sspManagerTemplate"},
+//			{"title" : "Alt Simple", "tpName" : "sspAltSimpleTemplate"},
+//			{"title" : "Moderate", "tpName"   : "sspModerateTemplate"},
+//			{"title" : "Power User", "tpName" : "sspPowerUserTemplate"},
+//			{"title" : "Max User", "tpName"   : "sspMaxUserTemplate"},
+		];
+		
+		return templates;
+	},
+	
+	///////////////////////////////////////////
+	// Given a template's title, returns the
+	// index of that template's object within
+	// the provided list of templates
+	getTemplateIndexFromTitle: function(title, templates) {
+		for (var i = 0; i < templates.length; i++) {
+			if (templates[i]["title"] === title) {
+				return i;
+			}
+		}
+		return 0;
+	},
+
+	
+	// Provides array of available widgets for 
+	// the full customization process
+	getAvailWidgetsBySize: function(size) {
+		var small = [
+			{'dX' : 0, "id" : "ssp_pie_incident", "dSize" : "Small", "options" : {'title': 'Open Incidents by Priority', 'aggregate_field' : 'priority', 'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc', 'palette' : 'allBad' }},
+			{'dX' : 1, "id" : "ssp_pie_incident", "dSize" : "Small", "options" : {'title': 'Open Incidents by Category', 'aggregate_field' : 'category', 'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc', 'palette' : 'catShort', 'enable_legend' : false }},
+			{'dX' : 2, "id" : "ssp_pie_incident", "dSize" : "Small", "options" : {'title': 'Open Incidents by Urgency',  'aggregate_field' : 'urgency',  'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc', 'palette' : 'allBad'  }},
+			{'dX' : 3, "id" : "ssp_pie_incident", "dSize" : "Small", "options" : {'title': 'Open Incidents by Impact',   'aggregate_field' : 'impact',   'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc', 'palette' : 'allBad'  }},
+			{'dX' : 4, "id" : "ssp_pie_incident", "dSize" : "Small", "options" : {'title': 'Service Req by Priority', 'aggregate_field' : 'priority', 'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHServ', 'palette' : 'allBad' }},
+			{'dX' : 5, "id" : "ssp_pie_incident", "dSize" : "Small", "options" : {'title': 'Service Req by Category', 'aggregate_field' : 'category', 'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHServ', 'palette' : 'catShort', 'enable_legend' : false }},
+			{'dX' : 6, "id" : "ssp_pie_incident", "dSize" : "Small", "options" : {'title': 'Service Req by Urgency',  'aggregate_field' : 'urgency',  'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHServ', 'palette' : 'allBad'  }},
+			{'dX' : 7, "id" : "ssp_pie_incident", "dSize" : "Small", "options" : {'title': 'Service Req by Impact',   'aggregate_field' : 'impact',   'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHServ', 'palette' : 'allBad'  }},
+		];
+		
+		var medium = [
+			{'dX' : 0, "id" : "ssp-sd-html-widget-calendar", "dSize" : "Medium", "options" : {"title" : "Departmental Calendar and Events"}},
+			{'dX' : 1, "id" : "ssp-sd-html-widget-projects", "dSize" : "Medium", "options" : {"title" : "Active IT Projects"}},
+			{'dX' : 2, "id" : "ssp_current_status_alt", "dSize" : "Medium", "options" : {"title" : "Current System Status"}},
+			{'dX' : 3, "id" : "announcements", "dSize" : "Medium", "options" : {"title" : "Announcements"}},
+			{'dX' : 4, "id" : "kb-mostviewed-articles", "dSize" : "Medium", "options" : {"title" : "Most Popular Articles"}},
+			{'dX' : 5, "id" : "ssp-completion-bar-chart", "dSize" : "Medium", "options" : {"title" : "Employee Certification Training"}},
+		];
+		
+		var large = [
+			{'dX' : 0, "id" : "ssp_hp_master", "dSize" : "Large", "options" : {"title" : "Service Areas & Support"}},
+			{'dX' : 1, "id" : "ssp_my_stuff", "dSize" : "Large", "options" : {"title" : "Quicklinks & Requests"}},
+			{'dX' : 2, "id" : "ssp_inc_contact_type", "dSize" : "Large", "options" : {"title" : "Incidents by Contact Type" }},
+			{'dX' : 3, "id" : "ssp_kbwordcloud", "dSize" : "Large", "options" : {"title" : "Answers Word Cloud" }},
+		];
+		
+		if (size === 'small') {
+			return small;
+		} else if (size === 'medium') {
+			return medium;
+		} else {
+			return large;
+		}
+		
+	},
+
+	
+	
+	
+    type: 'SSPMegaUtil'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-07-14 14:54:37</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>444cfe70db8e981036d27e09af9619e3</sys_id>
+        <sys_mod_count>158</sys_mod_count>
+        <sys_name>SSPMegaUtil</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sys_script_include_444cfe70db8e981036d27e09af9619e3</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-12-18 00:16:05</sys_updated_on>
+    </sys_script_include>
+</record_update>

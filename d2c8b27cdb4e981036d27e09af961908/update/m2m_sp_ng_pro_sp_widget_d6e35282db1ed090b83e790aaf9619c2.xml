@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_ng_pro_sp_widget">
+    <m2m_sp_ng_pro_sp_widget action="INSERT_OR_UPDATE">
+        <sp_angular_provider display_value="spTicker">b7ef440ecb11120000f8d856634c9c36</sp_angular_provider>
+        <sp_widget display_value="EPSP OC KB News">9ee35202db1ed090b83e790aaf96193e</sp_widget>
+        <sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-07-30 19:24:58</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>d6e35282db1ed090b83e790aaf9619c2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>spTicker.Copy of OC KB News</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_d6e35282db1ed090b83e790aaf9619c2</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-07-30 19:24:58</sys_updated_on>
+    </m2m_sp_ng_pro_sp_widget>
+</record_update>

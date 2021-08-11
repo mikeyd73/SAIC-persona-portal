@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.containme {
+  background-color: white;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.theHeader {
+	font-weight: 600;
+  font-size: 18px;
+  white-space: nowrap;
+  //color: #005797;
+  //border-bottom: 1px solid #000000;
+}
+
+ul {
+	list-style-type: none;  
+  margin-left: 0;
+  padding-left: 0;  
+}
+
+/*.col-md-3 {
+  width: 25%
+}*/</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description>Footer panel</description>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>ssp_oc_footer_dynamic</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>ssp_oc_footer_dynamic</name>
+        <option_schema>[{"name":"column_1_header","label":"Column 1 Header","type":"string"},{"name":"column_2_header","label":"Column 2 Header","type":"string"},{"name":"column_3_header","label":"Column 3 Header","type":"string"},{"name":"column_4_header","label":"Column 4 Header","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	data.itil = "";
+	
+	if (gs.hasRole('itil'))
+		{
+		data.itil = true;
+		} 
+	else 
+		{
+		data.itil = false;
+		}
+	
+	//***********************************
+	data.navigation = getFooterLinks('Column 2');
+	data.quicklinks = getFooterLinks('Column 3');
+	data.resources  = getFooterLinks('Column 4');
+	
+	//*************************************
+	//            -- NOTE --
+	// When moved to production, update the
+	// underlying table to make the following
+	// changes and then disable these hacks. :-)
+	
+	// Remove the "Report an IT Issue" link
+	data.quicklinks.splice(0,1);
+	
+	// Remove the "IT Managed Services Website" link
+	data.navigation.splice(1,1);
+	
+	// Rename "Enterprise Service Desk Help"
+	data.resources[1].label = "Service Desk Knowledge Base";
+	
+	//********** End of Hacks *************
+	
+	function getFooterLinks(header) {
+	var fl = new GlideRecord('u_sp_footer_links');
+		fl.addQuery('u_header', header);
+		fl.orderBy("u_order");
+		fl.query();
+	
+		var results = [];
+		
+		while (fl.next()) 
+			{
+			var link = {};
+			link.label = fl.getValue('u_label');
+			
+			//if KB article reference
+			if(fl.getDisplayValue('u_knowledge_article') != '')
+				{
+				link.url = '?id=kb_article&sys_id=' + fl.getValue('u_knowledge_article');	
+				}
+			//else use URL value
+			else
+				{
+				link.url = fl.getValue('u_url');
+				}
+			
+			//if open in a new window is TRUE
+			if(fl.u_target)	
+				{
+				link.target = '_blank';	
+				}
+			//else stay in same window
+			else
+				{
+				link.target = '';
+				}
+				
+			results.push(link);
+			}
+		return results;
+	}
+	//***********************************
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-07-15 17:18:51</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>2c37a4d9db4e1c1036d27e09af961972</sys_id>
+        <sys_mod_count>29</sys_mod_count>
+        <sys_name>ssp_oc_footer_dynamic</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sp_widget_2c37a4d9db4e1c1036d27e09af961972</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-11-20 15:22:17</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default b">
+  <div class="containme">
+    <div class="row">
+      <div class="col-md-3">
+				<div class="theHeader">Central IT Service Desk</div> 
+	       <br>
+        <!-- <div class="contactclear"><i class="fa fa-phone"></i>&nbsp;Phone:&nbsp;&nbsp;&nbsp;&nbsp;(844) 834-2449</div> -->
+        <div>
+          <table>
+            <tr><td nowrap><i class="fa fa-phone"></i>&nbsp;Phone:&nbsp;</td><td nowrap style="text-align: center"><strong>(844) 834-2449</strong></td></tr>
+            <tr><td></td><td style="text-align: center">or</td></tr>
+            <tr><td></td><td style="text-align: center"><strong>(714) 4IT-HELP</strong></td></tr>
+          </table>
+        </div>
+          <!-- <div class="contactleft"><i class="fa fa-clock-o"></i>&nbsp;Hours:&nbsp;&nbsp;&nbsp;&nbsp;24/7/365</div> -->
+      </div>
+      
+      <div class="col-md-3">
+        <div class="theHeader">{{::options.column_2_header.displayValue}}</div>
+        <br>
+        <ul>
+          <li ng-repeat="navigation in data.navigation"><a href="{{navigation.url}}" target="{{navigation.target}}">{{navigation.label}}</a></li>
+          <!-- <li ng-if="data.itil"><a href="/navpage.do" target="_blank">Process User</a></li> -->
+        </ul>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="theHeader">{{::options.column_3_header.displayValue}}</div>
+        <br>
+        <ul>
+          <li ng-if="data.itil"><a href="/navpage.do" target="_blank">Process User Access (Full SMS)</a></li>
+          <li ng-repeat="quicklink in data.quicklinks"><a href="{{quicklink.url}}" target="{{quicklink.target}}">{{quicklink.label}}</a></li>
+        </ul>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="theHeader">{{::options.column_4_header.displayValue}}</div>
+        <br>
+        <ul>
+          <li ng-repeat="resources in data.resources"><a href="{{resources.url}}" target="{{resources.target}}">{{resources.label}}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>  
+</div>]]></template>
+    </sp_widget>
+</record_update>

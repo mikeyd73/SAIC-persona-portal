@@ -26,21 +26,21 @@ SSPMyStuffUtil.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 			agencyLinks = [
 				{"title" : "OCCR Account Request Form", "link" : "/oc?id=sc_cat_item&sys_id=e0f962ec6f4869007d1f35af1e3ee482&sysparm_category=4d948f6d6f0a15007d1f35af1e3ee4ff"},
 			];
-		} else if (uDept == 'CSS') {
+		} else if (uDept == 'Finance') {
 			agencyLinks = [
-				{"title" : "CSS Report an Issue", "link" : "/oc?id=sc_cat_item&sys_id=29941a4edbf4b70036d27e09af961956&sysparm_category=0ec4cf6d6f0a15007d1f35af1e3ee428"},
-				{"title" : "CSS Service Request", "link" : "/oc?id=sc_cat_item&sys_id=bf02f0d7db85fb00b83e790aaf961968&sysparm_category=1f14c3ad6f0a15007d1f35af1e3ee4da"},
-				{"title" : "CSS Security Access Request", "link" : "/oc?id=sc_cat_item&sys_id=56368c84db157f00b83e790aaf961910&sysparm_category=4d948f6d6f0a15007d1f35af1e3ee4ff"},
+				{"title" : "Finance Report an Issue", "link" : "/oc?id=sc_cat_item&sys_id=29941a4edbf4b70036d27e09af961956&sysparm_category=0ec4cf6d6f0a15007d1f35af1e3ee428"},
+				{"title" : "Finance Service Request", "link" : "/oc?id=sc_cat_item&sys_id=bf02f0d7db85fb00b83e790aaf961968&sysparm_category=1f14c3ad6f0a15007d1f35af1e3ee4da"},
+				{"title" : "Finance Security Access Request", "link" : "/oc?id=sc_cat_item&sys_id=56368c84db157f00b83e790aaf961910&sysparm_category=4d948f6d6f0a15007d1f35af1e3ee4ff"},
 			];
 		} else if (uDept == 'OCPW') {
 			agencyLinks = [
 				{"title" : "OCPW Report an Issue", "link" : "/oc?id=sc_cat_item&sys_id=8a2f85cedb9a881036d27e09af961945&sysparm_category=0ec4cf6d6f0a15007d1f35af1e3ee428"},
 				{"title" : "OCPW Service Request", "link" : "/oc?id=sc_cat_item&sys_id=dcd96ea2db5e0c1036d27e09af96198c&sysparm_category=1f14c3ad6f0a15007d1f35af1e3ee4da"},
 			]; 
-		} else if (uDept == 'SSA' || uDept == 'SSA-CFS') {
+		} else if (uDept == 'HR' || uDept == 'SSA-CFS') {
 			agencyLinks = [
-				{"title" : "SSA Provisioning / Deprovisioning Services", "link" : "/oc?id=sc_cat_item_guide&sys_id=faae0406dbc49410b83e790aaf9619c4&sysparm_category=b1a1736b6fc192007d1f05af1e3ee491"},
-				{"title" : "SSA App & Database Solution Request", "link" : "/oc?id=sc_cat_item&sys_id=45eb5d13db278c90b83e790aaf96192c&sysparm_category=1f14c3ad6f0a15007d1f35af1e3ee4da"},
+				{"title" : "HR Provisioning / Deprovisioning Services", "link" : "/oc?id=sc_cat_item_guide&sys_id=faae0406dbc49410b83e790aaf9619c4&sysparm_category=b1a1736b6fc192007d1f05af1e3ee491"},
+				{"title" : "HR App & Database Solution Request", "link" : "/oc?id=sc_cat_item&sys_id=45eb5d13db278c90b83e790aaf96192c&sysparm_category=1f14c3ad6f0a15007d1f35af1e3ee4da"},
 			];  
 		} else if (uDept == 'PROB') {
 			agencyLinks = [
@@ -128,16 +128,14 @@ SSPMyStuffUtil.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-07-14 14:57:33</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>81fc3e7cdb4e981036d27e09af9619fe</sys_id>
-        <sys_mod_count>44</sys_mod_count>
+        <sys_mod_count>45</sys_mod_count>
         <sys_name>SSPMyStuffUtil</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy>read</sys_policy>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>sys_script_include_81fc3e7cdb4e981036d27e09af9619fe</sys_update_name>
-        <sys_updated_by>adminles</sys_updated_by>
-        <sys_updated_on>2021-06-22 22:46:41</sys_updated_on>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-09-02 12:35:45</sys_updated_on>
     </sys_script_include>
 </record_update>

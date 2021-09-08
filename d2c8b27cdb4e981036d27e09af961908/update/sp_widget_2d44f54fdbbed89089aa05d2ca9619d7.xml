@@ -36,7 +36,7 @@
 		}
 		console.log("Data Icon: " + data.icon);
 	
-		if (data.category == "Agency Specific") {
+		if (data.category == "Department Specific") {
 			c.data.titleQL = "My Agency Links";
 			c.data.myQuickLinks = c.data.agencyLinks;
 		} else if (data.category == "Account and Facility Access") {
@@ -353,8 +353,8 @@ ul.ssp-direct-list-group{
 	if (agencyLinks && agencyLinks.length > 0) {
 		data.hasAgencyLinks = true;
 		//add agency object
-		data.btnList.unshift({text: 'Agency Specific Requests', icon: 'fa-building-o'});	
-		data.svcCategories.unshift("Agency Specific");
+		data.btnList.unshift({text: 'My Department Requests', icon: 'fa-building-o'});	
+		data.svcCategories.unshift("Department Specific");
 	}
 	
 
@@ -383,17 +383,15 @@ ul.ssp-direct-list-group{
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-08-27 16:12:03</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>2d44f54fdbbed89089aa05d2ca9619d7</sys_id>
-        <sys_mod_count>70</sys_mod_count>
+        <sys_mod_count>73</sys_mod_count>
         <sys_name>SSP HP Master v2</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>sp_widget_2d44f54fdbbed89089aa05d2ca9619d7</sys_update_name>
-        <sys_updated_by>admintravis1</sys_updated_by>
-        <sys_updated_on>2021-03-17 18:07:48</sys_updated_on>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-09-02 15:57:05</sys_updated_on>
         <template><![CDATA[<div class="panel panel-default b" ng-attr-id="ssp_id_{{ c.data.parent_id }}">  
 
   <div class="panel-heading panel-heading-master">

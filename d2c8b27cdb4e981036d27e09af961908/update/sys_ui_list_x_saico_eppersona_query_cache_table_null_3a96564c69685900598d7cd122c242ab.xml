@@ -1,5 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
     <sys_ui_list parent="" relationship="" sys_domain="3a96564c69685900598d7cd122c242ab" table="x_saico_eppersona_query_cache_table" version="2" view="">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>department</element>
+            <list_id display_value="x_saico_eppersona_query_cache_table" element="NULL" name="x_saico_eppersona_query_cache_table" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">39875baf1bbd781055d178cf034bcb24</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>adminbleicherd</sys_created_by>
+            <sys_created_on>2021-08-12 12:02:11</sys_created_on>
+            <sys_id>35875baf1bbd781055d178cf034bcb26</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminbleicherd</sys_updated_by>
+            <sys_updated_on>2021-08-12 12:02:11</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>query_name</element>
+            <list_id display_value="x_saico_eppersona_query_cache_table" element="NULL" name="x_saico_eppersona_query_cache_table" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">39875baf1bbd781055d178cf034bcb24</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>adminbleicherd</sys_created_by>
+            <sys_created_on>2021-08-12 12:02:11</sys_created_on>
+            <sys_id>b9875baf1bbd781055d178cf034bcb26</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminbleicherd</sys_updated_by>
+            <sys_updated_on>2021-08-12 12:02:11</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>query_result</element>
+            <list_id display_value="x_saico_eppersona_query_cache_table" element="NULL" name="x_saico_eppersona_query_cache_table" parent="NULL" relationship="NULL" sys_domain="global" view="Default view">39875baf1bbd781055d178cf034bcb24</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>adminbleicherd</sys_created_by>
+            <sys_created_on>2021-08-12 12:02:11</sys_created_on>
+            <sys_id>3d875baf1bbd781055d178cf034bcb26</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminbleicherd</sys_updated_by>
+            <sys_updated_on>2021-08-12 12:02:11</sys_updated_on>
+        </sys_ui_list_element>
         <sys_ui_list action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
             <element/>
@@ -13,45 +58,13 @@
             <sys_class_name>sys_ui_list</sys_class_name>
             <sys_created_by>adminrobert</sys_created_by>
             <sys_created_on>2020-10-07 14:18:08</sys_created_on>
-            <sys_customer_update>false</sys_customer_update>
             <sys_domain>3a96564c69685900598d7cd122c242ab</sys_domain>
-            <sys_domain_path>!!!/!!#/</sys_domain_path>
+            <sys_domain_path/>
             <sys_id>b0632858db371c9489aa05d2ca9619ce</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>x_saico_eppersona_query_cache_table</sys_name>
             <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
             <sys_policy/>
-            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
-            <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
-            <sys_update_name>sys_ui_list_x_saico_eppersona_query_cache_table_null_b0632858db371c9489aa05d2ca9619ce</sys_update_name>
-            <sys_updated_by>adminrobert</sys_updated_by>
-            <sys_updated_on>2020-10-07 14:18:08</sys_updated_on>
-            <sys_user/>
-            <view display_value="Default view" name="NULL">Default view</view>
-            <view_name/>
-        </sys_ui_list>
-        <sys_ui_list action="INSERT_OR_UPDATE">
-            <average_value>false</average_value>
-            <element/>
-            <max_value>false</max_value>
-            <min_value>false</min_value>
-            <name>x_saico_eppersona_query_cache_table</name>
-            <parent/>
-            <position/>
-            <relationship/>
-            <sum>false</sum>
-            <sys_class_name>sys_ui_list</sys_class_name>
-            <sys_created_by>adminrobert</sys_created_by>
-            <sys_created_on>2020-10-07 14:18:08</sys_created_on>
-            <sys_customer_update>false</sys_customer_update>
-            <sys_domain>3a96564c69685900598d7cd122c242ab</sys_domain>
-            <sys_domain_path>!!!/!!#/</sys_domain_path>
-            <sys_id>b0632858db371c9489aa05d2ca9619ce</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_name>x_saico_eppersona_query_cache_table</sys_name>
-            <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
-            <sys_policy/>
-            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
             <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
             <sys_update_name>sys_ui_list_x_saico_eppersona_query_cache_table_null_b0632858db371c9489aa05d2ca9619ce</sys_update_name>
             <sys_updated_by>adminrobert</sys_updated_by>

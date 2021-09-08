@@ -10,13 +10,11 @@
         <sys_class_name>db_image</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-08-18 16:45:07</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>0175a7c8db765c5089aa05d2ca961961</sys_id>
         <sys_mod_count>2</sys_mod_count>
         <sys_name>oc-background.png</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>db_image_0175a7c8db765c5089aa05d2ca961961</sys_update_name>
         <sys_updated_by>admindavid</sys_updated_by>
@@ -29,6 +27,7 @@
         <chunk_size_bytes>700000</chunk_size_bytes>
         <compressed>true</compressed>
         <content_type>image/png</content_type>
+        <encryption_context/>
         <file_name>image</file_name>
         <hash>b28028b27bd7dfb3cb17c6002bef53b5c7c571282a79ee0235a4e14f496ad8d6</hash>
         <image_height>150</image_height>
@@ -38,8 +37,6 @@
         <state>available</state>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-08-18 16:45:13</sys_created_on>
-        <sys_domain>global</sys_domain>
-        <sys_domain_path>/</sys_domain_path>
         <sys_id>ff856bc8db765c5089aa05d2ca96194e</sys_id>
         <sys_mod_count>3</sys_mod_count>
         <sys_updated_by>guest</sys_updated_by>

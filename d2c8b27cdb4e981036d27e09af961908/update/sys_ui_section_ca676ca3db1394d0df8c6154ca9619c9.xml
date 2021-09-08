@@ -106,16 +106,14 @@
             <sys_class_name>sys_ui_section</sys_class_name>
             <sys_created_by>adminrobert</sys_created_by>
             <sys_created_on>2020-09-22 20:24:35</sys_created_on>
-            <sys_customer_update>false</sys_customer_update>
             <sys_domain>3a96564c69685900598d7cd122c242ab</sys_domain>
-            <sys_domain_path>!!!/!!#/</sys_domain_path>
+            <sys_domain_path/>
             <sys_id>ca676ca3db1394d0df8c6154ca9619c9</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_name>x_saico_eppersona_query_cache_table</sys_name>
             <sys_overrides/>
             <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
             <sys_policy/>
-            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
             <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
             <sys_update_name>sys_ui_section_ca676ca3db1394d0df8c6154ca9619c9</sys_update_name>
             <sys_updated_by>adminrobert</sys_updated_by>

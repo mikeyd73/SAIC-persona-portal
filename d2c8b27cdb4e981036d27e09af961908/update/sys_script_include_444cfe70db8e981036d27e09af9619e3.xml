@@ -165,24 +165,26 @@ SSPMegaUtil.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		// Manager Template Chart Options
 		var iDeptFilter = "^caller_id.department.name="+userDept;
 		var rDeptFilter = "^request.requested_for.department.name="+userDept;
+		var aDeptFilter = "^assigned_to.department.name="+userDept;
 		if (!userDept || userDept == "ALL") {
 			iDeptFilter = "";
 			rDeptFilter = "";
+			aDeptFilter = "";
 		}
 		
 		var pieOpenIncidentsByPriority = {
 			'title': userDept+' Open Incidents by Priority',   
 			'aggregate_field' : 'priority',     
-			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc'+iDeptFilter, 
+			'aggregate_filter' : 'active=true'+iDeptFilter, 
 			'palette' : 'allBad',  
 			'cache_name' : 'pieOpenIncidentsByPriority',
-			'enable_legend' : true 
+			'enable_legend' : false 
 		};
 		
 		var barOpenIncidentsByCategory = {
 			'title': userDept+' Open Incidents by Category',  
 			'aggregate_field' : 'category',  
-			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc'+iDeptFilter, 
+			'aggregate_filter' : 'active=true'+iDeptFilter, 
 			'palette' : 'catLong',  
 			'enable_legend' : true, 
 			'table_name' : 'incident',
@@ -193,7 +195,7 @@ SSPMegaUtil.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		var barOpenIncidentsBySubcategory = {
 			'title': userDept+' Open Incidents by Subcategory',  
 			'aggregate_field' : 'subcategory',  
-			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc'+iDeptFilter, 
+			'aggregate_filter' : 'active=true'+iDeptFilter, 
 			'palette' : 'catLong',  
 			'enable_legend' : true, 
 			'table_name' : 'incident', 
@@ -202,9 +204,9 @@ SSPMegaUtil.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		};
 		
 		var barOpenRequestsByCategory =  {
-			'title': userDept+' Open Service Requests by Category',  
-			'aggregate_field' : 'category',  
-			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHSer'+iDeptFilter, 
+			'title': userDept+' Open Incidents by Assignment Group',  
+			'aggregate_field' : 'assignment_group.name',  
+			'aggregate_filter' : 'active=true'+iDeptFilter, 
 			'palette' : 'catLong',  
 			'enable_legend' : true, 
 			'table_name' : 'incident', 
@@ -212,14 +214,15 @@ SSPMegaUtil.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 			'sortbycount' : true 
 		};
 		
-		var barOpenRequestsBySubcategory =  {
-			'title': userDept+' Open Service Requests by Subcategory',  
-			'aggregate_field' : 'subcategory',  
-			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHSer'+iDeptFilter, 
+		// Changed from barOpenRequestsBySubcategory
+		var barInUseAssetsByType =  {
+			'title': userDept+' In-use Assets by Type',  
+			'aggregate_field' : 'model.display_name',  
+			'aggregate_filter' : 'install_status=1'+aDeptFilter, 
 			'palette' : 'catLong',  
 			'enable_legend' : true, 
-			'table_name' : 'incident', 
-			'cache_name' : 'barOpenRequestsBySubcategory',
+			'table_name' : 'alm_asset', 
+			'cache_name' : 'barInUseAssetsByType',
 			'sortbycount' : true 
 		};
 		
@@ -275,9 +278,9 @@ SSPMegaUtil.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 			
 			{"id" : "ssp_bar_scroll",   "dSize" : "Small", "options" : barOpenIncidentsByCategory}, //13
 			{"id" : "ssp_bar_scroll",   "dSize" : "Small", "options" : barOpenIncidentsBySubcategory}, //14
-			{"id" : "ssp_pie_incident", "dSize" : "Small", "options" : pieOpenIncidentsByPriority}, //15
+			{"id" : "essp_pie_incident", "dSize" : "Small", "options" : pieOpenIncidentsByPriority}, //15
 			{"id" : "ssp_bar_scroll",   "dSize" : "Small", "options" : barOpenRequestsByCategory}, //16
-			{"id" : "ssp_bar_scroll",   "dSize" : "Small", "options" : barOpenRequestsBySubcategory}, //17
+			{"id" : "ssp_bar_scroll",   "dSize" : "Small", "options" : barInUseAssetsByType}, //17
 			{"id" : "ssp_bar_scroll",   "dSize" : "Small", "options" : barOpenRequestsByItem}, //18
 			{"id" : "epsp_aging_summary",   "dSize" : "Small", "options" : {'cache_name' : 'agingSummary'}}, //19
 			{"id" : "ssp_bar_scroll",   "dSize" : "Small", "options" : barTopRequestors}, //20
@@ -369,16 +372,14 @@ SSPMegaUtil.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-07-14 14:54:37</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>444cfe70db8e981036d27e09af9619e3</sys_id>
-        <sys_mod_count>158</sys_mod_count>
+        <sys_mod_count>170</sys_mod_count>
         <sys_name>SSPMegaUtil</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy>read</sys_policy>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>sys_script_include_444cfe70db8e981036d27e09af9619e3</sys_update_name>
-        <sys_updated_by>admindavid</sys_updated_by>
-        <sys_updated_on>2020-12-18 00:16:05</sys_updated_on>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-09-07 16:11:59</sys_updated_on>
     </sys_script_include>
 </record_update>

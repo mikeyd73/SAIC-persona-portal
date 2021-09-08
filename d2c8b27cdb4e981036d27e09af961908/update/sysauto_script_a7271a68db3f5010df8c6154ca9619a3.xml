@@ -2,7 +2,6 @@
     <sysauto_script action="INSERT_OR_UPDATE">
         <active>true</active>
         <business_calendar/>
-        <can_iterate>false</can_iterate>
         <condition/>
         <conditional>false</conditional>
         <entered_time/>
@@ -22,7 +21,7 @@
 // Get a list of all departments
 var depts = ['ALL'];
 var gr = new GlideRecord('cmn_department');
-gr.addEncodedQuery('u_active=true');
+// gr.addEncodedQuery('u_active=true');
 gr.orderBy('name');
 gr.query();
 
@@ -36,22 +35,18 @@ for (x = 0; x < depts.length; x++) {
 	scu.genCacheDataForDept(depts[x]);	
 }
 ]]></script>
-        <source_filter/>
-        <source_table/>
         <sys_class_name>sysauto_script</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-10-08 17:23:11</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>a7271a68db3f5010df8c6154ca9619a3</sys_id>
-        <sys_mod_count>12</sys_mod_count>
+        <sys_mod_count>13</sys_mod_count>
         <sys_name>EPSP Department Cache Data</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>sysauto_script_a7271a68db3f5010df8c6154ca9619a3</sys_update_name>
-        <sys_updated_by>adminles</sys_updated_by>
-        <sys_updated_on>2020-12-19 01:34:49</sys_updated_on>
+        <sys_updated_by>david.loo</sys_updated_by>
+        <sys_updated_on>2021-08-11 19:37:11</sys_updated_on>
         <time_zone/>
         <upgrade_safe>false</upgrade_safe>
     </sysauto_script>

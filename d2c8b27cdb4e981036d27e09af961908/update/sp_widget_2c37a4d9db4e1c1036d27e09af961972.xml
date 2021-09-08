@@ -81,12 +81,30 @@ ul {
 	//********** End of Hacks *************
 	
 	function getFooterLinks(header) {
-	var fl = new GlideRecord('u_sp_footer_links');
+		// Bleicher Change 8/11/21 to avoid the OC use of a separate links table
+		var results = [
+			{
+				label: "This is a link",
+				url: "/oc",
+				target: ""
+			},
+			{
+				label: "This is a DIFFERENT link",
+				url: "/oc",
+				target: ""
+			},
+			{
+				label: "This is a ANOTHER link",
+				url: "/oc",
+				target: ""		
+			}
+		];
+		return results;
+		
+	  var fl = new GlideRecord('u_sp_footer_links');
 		fl.addQuery('u_header', header);
 		fl.orderBy("u_order");
 		fl.query();
-	
-		var results = [];
 		
 		while (fl.next()) 
 			{
@@ -126,17 +144,15 @@ ul {
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-07-15 17:18:51</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>2c37a4d9db4e1c1036d27e09af961972</sys_id>
-        <sys_mod_count>29</sys_mod_count>
+        <sys_mod_count>32</sys_mod_count>
         <sys_name>ssp_oc_footer_dynamic</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>sp_widget_2c37a4d9db4e1c1036d27e09af961972</sys_update_name>
-        <sys_updated_by>admindavid</sys_updated_by>
-        <sys_updated_on>2020-11-20 15:22:17</sys_updated_on>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-09-02 14:39:43</sys_updated_on>
         <template><![CDATA[<div class="panel panel-default b">
   <div class="containme">
     <div class="row">
@@ -146,9 +162,9 @@ ul {
         <!-- <div class="contactclear"><i class="fa fa-phone"></i>&nbsp;Phone:&nbsp;&nbsp;&nbsp;&nbsp;(844) 834-2449</div> -->
         <div>
           <table>
-            <tr><td nowrap><i class="fa fa-phone"></i>&nbsp;Phone:&nbsp;</td><td nowrap style="text-align: center"><strong>(844) 834-2449</strong></td></tr>
+            <tr><td nowrap><i class="fa fa-phone"></i>&nbsp;Phone:&nbsp;</td><td nowrap style="text-align: center"><strong>(800) 555-1212</strong></td></tr>
             <tr><td></td><td style="text-align: center">or</td></tr>
-            <tr><td></td><td style="text-align: center"><strong>(714) 4IT-HELP</strong></td></tr>
+            <tr><td></td><td style="text-align: center"><strong>(555) 4IT-HELP</strong></td></tr>
           </table>
         </div>
           <!-- <div class="contactleft"><i class="fa fa-clock-o"></i>&nbsp;Hours:&nbsp;&nbsp;&nbsp;&nbsp;24/7/365</div> -->

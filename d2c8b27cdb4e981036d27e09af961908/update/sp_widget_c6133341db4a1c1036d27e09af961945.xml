@@ -164,10 +164,12 @@ body {
 			);		
 	}
 
+	data.ivaw = $sp.getWidget("sn-va-sp-widget", {});
+	
 	// There are four special widgets that
 	// most templates will load, getting their
 	// models here, just for fun:
-	data.wBigSearch = $sp.getWidget("ssp_main_search_block", {});
+	data.wBigSearch = $sp.getWidget("epsp_main_search_block", {});
 	data.wHPMaster = $sp.getWidget("ssp_hp_master_v2", {});
   data.wMyStuff = $sp.getWidget("ssp_my_stuff_v2", {});
 	data.wPrefDept = $sp.getWidget("epsp_preferences", {});
@@ -183,17 +185,15 @@ body {
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-07-15 13:31:13</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>c6133341db4a1c1036d27e09af961945</sys_id>
-        <sys_mod_count>56</sys_mod_count>
+        <sys_mod_count>58</sys_mod_count>
         <sys_name>Persona Engine</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>sp_widget_c6133341db4a1c1036d27e09af961945</sys_update_name>
-        <sys_updated_by>admindavid</sys_updated_by>
-        <sys_updated_on>2020-12-18 00:09:49</sys_updated_on>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-09-02 15:47:02</sys_updated_on>
         <template><![CDATA[<div id="holder">
 
   <div id="myMainContain" ng-include="c.data.myTemplate"></div>

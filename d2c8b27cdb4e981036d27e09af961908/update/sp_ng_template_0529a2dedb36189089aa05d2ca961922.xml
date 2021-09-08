@@ -5,17 +5,15 @@
         <sys_class_name>sp_ng_template</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-08-25 12:07:35</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>0529a2dedb36189089aa05d2ca961922</sys_id>
-        <sys_mod_count>46</sys_mod_count>
+        <sys_mod_count>49</sys_mod_count>
         <sys_name>sspManagerTemplate</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>sp_ng_template_0529a2dedb36189089aa05d2ca961922</sys_update_name>
-        <sys_updated_by>admindavid</sys_updated_by>
-        <sys_updated_on>2020-12-02 13:39:17</sys_updated_on>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-09-07 14:25:19</sys_updated_on>
         <template><![CDATA[<!--
 <div class="row">
   <div class="col-md-12 ssp-hero-header">
@@ -63,7 +61,7 @@
     <sp-widget ng-if="data.wd[18]" widget="data.wd[18]"></sp-widget>
   </div>		  
   <div class="col-md-3">
-    <sp-widget ng-if="data.wd[20]" widget="data.wd[20]"></sp-widget>
+    <sp-widget ng-if="data.wd[20]" widget="data.wd[21]"></sp-widget>
   </div>		  
 </div>
 
@@ -83,6 +81,10 @@
   </div>
 </div>
 
+
+<div>
+  <sp-widget widget="c.data.ivaw"></sp-widget>
+</div>
 <!--
 <div class="row">
   <div class="col-md-10"></div>    

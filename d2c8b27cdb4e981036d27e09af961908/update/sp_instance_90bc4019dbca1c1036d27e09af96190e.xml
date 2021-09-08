@@ -117,13 +117,11 @@ div.ssp-hero-header div.panels-container div:nth-child(3) p a{&#13;
         <sys_class_name>sp_instance</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-07-15 15:23:03</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>90bc4019dbca1c1036d27e09af96190e</sys_id>
         <sys_mod_count>55</sys_mod_count>
         <sys_name/>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>sp_instance_90bc4019dbca1c1036d27e09af96190e</sys_update_name>
         <sys_updated_by>adminrobert</sys_updated_by>

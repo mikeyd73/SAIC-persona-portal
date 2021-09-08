@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_knowledge_base">
+    <m2m_sp_portal_knowledge_base action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <kb_knowledge_base display_value="RA Internal KB">c7376f25dbed7f40f42f32dc7c961989</kb_knowledge_base>
+        <order>100</order>
+        <sp_portal display_value="Enhanced Portal">a780cf38db8e981036d27e09af961907</sp_portal>
+        <sys_class_name>m2m_sp_portal_knowledge_base</sys_class_name>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2021-08-11 19:19:49</sys_created_on>
+        <sys_id>a212f7931b79381055d178cf034bcbe9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>RA Internal KB.Enhanced Portal</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>m2m_sp_portal_knowledge_base_a212f7931b79381055d178cf034bcbe9</sys_update_name>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-08-11 19:19:49</sys_updated_on>
+    </m2m_sp_portal_knowledge_base>
+</record_update>

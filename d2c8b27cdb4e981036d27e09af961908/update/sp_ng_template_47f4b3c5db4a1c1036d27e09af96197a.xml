@@ -5,13 +5,11 @@
         <sys_class_name>sp_ng_template</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-07-15 13:41:07</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>47f4b3c5db4a1c1036d27e09af96197a</sys_id>
         <sys_mod_count>42</sys_mod_count>
         <sys_name>sspLegacyTemplate</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>sp_ng_template_47f4b3c5db4a1c1036d27e09af96197a</sys_update_name>
         <sys_updated_by>admindavid</sys_updated_by>

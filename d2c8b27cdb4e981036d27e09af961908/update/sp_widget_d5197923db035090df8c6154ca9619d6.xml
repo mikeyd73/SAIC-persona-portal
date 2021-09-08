@@ -90,7 +90,7 @@ th {
 		}
 	
 		var scu = new SSPChartUtils();
-		data.rez = scu.aggAgingData(data.userDept);
+		data.rez = scu.aggAgingDataStand(data.userDept);
 
 		data.hasITIL = gs.getUser().hasRole('itil');
 		if (!data.hasITIL) {
@@ -104,17 +104,15 @@ th {
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-09-10 16:05:44</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>d5197923db035090df8c6154ca9619d6</sys_id>
-        <sys_mod_count>117</sys_mod_count>
+        <sys_mod_count>119</sys_mod_count>
         <sys_name>EPSP Aging Summary</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>sp_widget_d5197923db035090df8c6154ca9619d6</sys_update_name>
-        <sys_updated_by>admindavid</sys_updated_by>
-        <sys_updated_on>2020-11-23 23:36:25</sys_updated_on>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-09-08 22:18:03</sys_updated_on>
         <template><![CDATA[<div>
 	<table class="ageTable">
   	<tr>
@@ -129,6 +127,7 @@ th {
       </th>
       <td class="bigNumber"><a href="{{c.data.rez.incAge30Link}}">{{c.data.rez.incAge30}}</a></td>
     </tr>
+   <!--
     <tr>
       <th>
         <span class="tooltipR" 
@@ -137,6 +136,7 @@ th {
         </span>
       </th><td class="bigNumber"><a href="{{c.data.rez.incSer30Link}}">{{c.data.rez.incSer30}}</a></td>
     </tr>
+   -->
     <tr>
       <th>
         <span class="tooltipR" 

@@ -10,13 +10,11 @@
         <sys_class_name>db_image</sys_class_name>
         <sys_created_by>adminrobert</sys_created_by>
         <sys_created_on>2020-08-18 19:43:37</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>155e401cdb321090df8c6154ca96194d</sys_id>
         <sys_mod_count>2</sys_mod_count>
         <sys_name>icon_request_services.png</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>db_image_155e401cdb321090df8c6154ca96194d</sys_update_name>
         <sys_updated_by>adminrobert</sys_updated_by>
@@ -29,6 +27,7 @@
         <chunk_size_bytes>700000</chunk_size_bytes>
         <compressed>true</compressed>
         <content_type>image/png</content_type>
+        <encryption_context/>
         <file_name>image</file_name>
         <hash>3fbdd206d0cfce58f7309da92535a0c0fc80335fe88f8e369c13fc1395e1900c</hash>
         <image_height>38</image_height>
@@ -38,8 +37,6 @@
         <state>available</state>
         <sys_created_by>adminrobert</sys_created_by>
         <sys_created_on>2020-08-18 19:43:43</sys_created_on>
-        <sys_domain>global</sys_domain>
-        <sys_domain_path>/</sys_domain_path>
         <sys_id>566ec01cdb321090df8c6154ca961978</sys_id>
         <sys_mod_count>3</sys_mod_count>
         <sys_updated_by>guest</sys_updated_by>

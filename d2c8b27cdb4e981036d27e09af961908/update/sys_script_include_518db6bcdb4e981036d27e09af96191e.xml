@@ -17,7 +17,9 @@ SSPChartUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		var gr = new GlideRecord('change_request');
 		
 		// May need to make this filter more exclusive to reduce the result set.
-		gr.addEncodedQuery("active=true^start_dateRELATIVELT@dayofweek@ahead@14^start_dateRELATIVEGT@minute@ago@1^typeINNormal,Emergency^stateIN4,-3,-2,-1,0,1,2,5");
+		// gr.addEncodedQuery("active=true^start_dateRELATIVELT@dayofweek@ahead@14^start_dateRELATIVEGT@minute@ago@1^typeINNormal,Emergency^stateIN4,-3,-2,-1,0,1,2,5");
+		gr.addEncodedQuery("short_description!=NULL^state!=3^ORstate=^end_date>=javascript:gs.beginningOfToday()");
+		//short_description!=NULL^state!=3^ORstate=^end_date>=javascript:gs.beginningOfToday()
 		gr.query();
 		
 		var rez = [];
@@ -222,7 +224,63 @@ SSPChartUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		return chartData.slice(0,50);
 	},
 
-	// Get the aggregate aging data overall or by dept
+	
+	// Get the aggregate aging data overall or by dept (for standard SN incident table)
+	aggAgingDataStand: function(deptOrAll) {
+		if (!gs.getUser().hasRole('itil')) {
+
+			var gr = new GlideRecord('x_saico_eppersona_query_cache_table');
+			gr.addQuery('query_name', 'agingSummary');
+			if (!deptOrAll || deptOrAll == 'ALL') {
+				gr.addEncodedQuery('department=NULL');
+			} else {
+				gr.addQuery('department.name', deptOrAll);
+			}
+			gr.query();
+			if (gr.next()) {
+				return JSON.parse(gr.query_result);
+			}
+		}
+		
+		var rez = {
+			'incAge30' : 0,
+			'incAge30Link' : "/nav_to.do?uri=%2Fincident_list.do%3Fsysparm_query%3Dactive%3Dtrue%5Esys_created_onRELATIVELT@dayofweek@ago@30%5E",
+			'reqReq30' : 0,
+			'reqReq30Link' : "/nav_to.do?uri=%2Fsc_request_list.do%3Fsysparm_query%3Dactive%3Dtrue%5Esys_created_onRELATIVELT@dayofweek@ago@30"
+		};
+		
+		var ga = new GlideAggregate('incident');
+		ga.addEncodedQuery('active=true^sys_created_onRELATIVELT@dayofweek@ago@30');
+		if (deptOrAll != '' && deptOrAll != 'ALL') {
+			ga.addEncodedQuery('caller_id.department.name='+deptOrAll);
+			rez.incAge30Link = rez.incAge30Link+"%5Ecaller_id.department.name%3D"+deptOrAll;
+		}
+		ga.addAggregate('COUNT');
+		ga.query();
+		while (ga.next()) {
+			rez.incAge30 = parseInt(ga.getAggregate('COUNT'));
+		}
+				
+
+		ga = new GlideAggregate('sc_request');
+		ga.addEncodedQuery('active=true^sys_created_onRELATIVELT@dayofweek@ago@30');
+		if (deptOrAll != '' && deptOrAll != 'ALL') {
+			ga.addEncodedQuery('requested_for.department.name='+deptOrAll);
+			rez.reqReq30Link = rez.reqReq30Link+"%5Erequested_for.department.name%3D"+deptOrAll;
+		}
+		ga.addAggregate('COUNT');
+		ga.query();		
+		
+		while (ga.next()) {
+			rez.reqReq30 = parseInt(ga.getAggregate('COUNT'));
+		}
+		
+		return rez;
+	},
+	
+	
+	
+	// Get the aggregate aging data overall or by dept (for u_record_type)
 	aggAgingData: function(deptOrAll) {
 		if (!gs.getUser().hasRole('itil')) {
 
@@ -241,9 +299,9 @@ SSPChartUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		
 		var rez = {
 			'incAge30' : 0,
-			'incAge30Link' : "/nav_to.do?uri=%2Fincident_list.do%3Fsysparm_query%3Dactive%3Dtrue%5Esys_created_onRELATIVEGE@dayofweek@ago@30%5Eu_record_typeSTARTSWITHInc",
+			'incAge30Link' : "/nav_to.do?uri=%2Fincident_list.do%3Fsysparm_query%3Dactive%3Dtrue%5Esys_created_onRELATIVEGE@dayofweek@ago@30%5E",
 			'incSer30' : 0,
-			'incSer30Link' : "/nav_to.do?uri=%2Fincident_list.do%3Fsysparm_query%3Dactive%3Dtrue%5Esys_created_onRELATIVEGE@dayofweek@ago@30%5Eu_record_typeSTARTSWITHSer",
+			'incSer30Link' : "/nav_to.do?uri=%2Fincident_list.do%3Fsysparm_query%3Dactive%3Dtrue%5Esys_created_onRELATIVEGE@dayofweek@ago@30%5E",
 			'reqReq30' : 0,
 			'reqReq30Link' : "/nav_to.do?uri=%2Fsc_request_list.do%3Fsysparm_query%3Dactive%3Dtrue%5Esys_created_onRELATIVEGT@dayofweek@ago@30"
 		};
@@ -290,25 +348,28 @@ SSPChartUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 	// additional chart data calls here.
 	genCacheDataForDept: function(userDept) {
 
+		// Manager Template Chart Options
 		var iDeptFilter = "^caller_id.department.name="+userDept;
 		var rDeptFilter = "^request.requested_for.department.name="+userDept;
+		var aDeptFilter = "^assigned_to.department.name="+userDept;
 		if (!userDept || userDept == "ALL") {
 			iDeptFilter = "";
 			rDeptFilter = "";
+			aDeptFilter = "";
 		}
 		
 		var pieOpenIncidentsByPriority = {
 			'title': userDept+' Open Incidents by Priority',   
 			'aggregate_field' : 'priority',     
-			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc'+iDeptFilter, 
+			'aggregate_filter' : 'active=true'+iDeptFilter, 
 			'palette' : 'allBad',   
 			'enable_legend' : true 
 		};
 		
 		var barOpenIncidentsByCategory = {
 			'title': userDept+' Open Incidents by Category',  
-			'aggregate_field' : 'category',  
-			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc'+iDeptFilter, 
+			'aggregate_field' : 'category.value',  
+			'aggregate_filter' : 'active=true'+iDeptFilter, 
 			'palette' : 'catLong',  
 			'enable_legend' : true, 
 			'table_name' : 'incident', 
@@ -318,7 +379,7 @@ SSPChartUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		var barOpenIncidentsBySubcategory = {
 			'title': userDept+' Open Incidents by Subcategory',  
 			'aggregate_field' : 'subcategory',  
-			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHInc'+iDeptFilter, 
+			'aggregate_filter' : 'active=true'+iDeptFilter, 
 			'palette' : 'catLong',  
 			'enable_legend' : true, 
 			'table_name' : 'incident', 
@@ -328,20 +389,22 @@ SSPChartUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		var barOpenRequestsByCategory =  {
 			'title': userDept+' Open Service Requests by Category',  
 			'aggregate_field' : 'category',  
-			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHSer'+iDeptFilter, 
+			'aggregate_filter' : 'active=true'+iDeptFilter, 
 			'palette' : 'catLong',  
 			'enable_legend' : true, 
 			'table_name' : 'incident', 
 			'sortbycount' : true 
 		};
 		
-		var barOpenRequestsBySubcategory =  {
-			'title': userDept+' Open Service Requests by Subcategory',  
-			'aggregate_field' : 'subcategory',  
-			'aggregate_filter' : 'active=true^u_record_typeSTARTSWITHSer'+iDeptFilter, 
+		// Changed from barOpenRequestsBySubcategory
+		var barInUseAssetsByType =  {
+			'title': userDept+' In-use Assets by Type',  
+			'aggregate_field' : 'model.display_name',  
+			'aggregate_filter' : 'install_status=1'+aDeptFilter, 
 			'palette' : 'catLong',  
 			'enable_legend' : true, 
-			'table_name' : 'incident', 
+			'table_name' : 'alm_asset', 
+			'cache_name' : 'barInUseAssetsByType',
 			'sortbycount' : true 
 		};
 		
@@ -370,10 +433,10 @@ SSPChartUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		var RSbarOpenIncidentsByCategory = this.barScrollData(barOpenIncidentsByCategory.aggregate_field, barOpenIncidentsByCategory.aggregate_filter, barOpenIncidentsByCategory.table_name, barOpenIncidentsByCategory.sortbycount);
 		var RSbarOpenIncidentsBySubcategory = this.barScrollData(barOpenIncidentsBySubcategory.aggregate_field, barOpenIncidentsBySubcategory.aggregate_filter, barOpenIncidentsBySubcategory.table_name, barOpenIncidentsBySubcategory.sortbycount);
 		var RSbarOpenRequestsByCategory = this.barScrollData(barOpenRequestsByCategory.aggregate_field, barOpenRequestsByCategory.aggregate_filter, barOpenRequestsByCategory.table_name, barOpenRequestsByCategory.sortbycount);
-		var RSbarOpenRequestsBySubcategory = this.barScrollData(barOpenRequestsBySubcategory.aggregate_field, barOpenRequestsBySubcategory.aggregate_filter, barOpenRequestsBySubcategory.table_name, barOpenRequestsBySubcategory.sortbycount);
+		var RSbarInUseAssetsByType = this.barScrollData(barInUseAssetsByType.aggregate_field, barInUseAssetsByType.aggregate_filter, barInUseAssetsByType.table_name, barInUseAssetsByType.sortbycount);
 		var RSbarOpenRequestsByItem = this.barScrollData(barOpenRequestsByItem.aggregate_field, barOpenRequestsByItem.aggregate_filter, barOpenRequestsByItem.table_name, barOpenRequestsByItem.sortbycount);
 		var RSbarTopRequestors = this.barScrollData(barTopRequestors.aggregate_field, barTopRequestors.aggregate_filter, barTopRequestors.table_name, barTopRequestors.sortbycount);
-		var RSagingSummary = this.aggAgingData(userDept);
+		var RSagingSummary = this.aggAgingDataStand(userDept);
 		
 		var realDept;
 		var gra = new GlideRecord('cmn_department');
@@ -408,7 +471,7 @@ SSPChartUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 		_addCacheRec('barOpenIncidentsByCategory', RSbarOpenIncidentsByCategory, realDept);
 		_addCacheRec('barOpenIncidentsBySubcategory', RSbarOpenIncidentsBySubcategory, realDept);
 		_addCacheRec('barOpenRequestsByCategory', RSbarOpenRequestsByCategory, realDept);
-		_addCacheRec('barOpenRequestsBySubcategory', RSbarOpenRequestsBySubcategory, realDept);
+		_addCacheRec('barInUseAssetsByType', RSbarInUseAssetsByType, realDept);
 		_addCacheRec('barOpenRequestsByItem', RSbarOpenRequestsByItem, realDept);
 		_addCacheRec('barTopRequestors', RSbarTopRequestors, realDept);
 		_addCacheRec('agingSummary', RSagingSummary, realDept);
@@ -502,16 +565,14 @@ SSPChartUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-07-14 14:59:29</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>518db6bcdb4e981036d27e09af96191e</sys_id>
-        <sys_mod_count>43</sys_mod_count>
+        <sys_mod_count>53</sys_mod_count>
         <sys_name>SSPChartUtils</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy>read</sys_policy>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>sys_script_include_518db6bcdb4e981036d27e09af96191e</sys_update_name>
-        <sys_updated_by>admindavid</sys_updated_by>
-        <sys_updated_on>2020-12-17 22:02:53</sys_updated_on>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-09-08 22:13:59</sys_updated_on>
     </sys_script_include>
 </record_update>

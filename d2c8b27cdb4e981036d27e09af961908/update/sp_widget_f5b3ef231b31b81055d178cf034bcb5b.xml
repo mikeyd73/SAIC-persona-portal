@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $rootScope, $window) {
+  /* widget controller */
+  var c = this;
+	
+	
+	// Functions that emit events
+	c.onHelpClick = function() {
+		// $rootScope.$broadcast('sspHelpClick', "CustomSearch");
+		window.location = '/oc?id=sc_category&sys_id=e15706fc0a0a0aa7007fc21e1ab70c2f&catalog_id=e0d08b13c3330100c8b837659bba8fb4';
+	};
+
+	c.onServicesClick = function() {
+		// $rootScope.$broadcast('sspServicesClick', "CustomSearch");
+		window.location = 'oc?id=sc_home';
+	};
+	
+	c.onAccessClick = function() {
+		// $rootScope.$broadcast('sspAccessClick', "CustomSearch");
+		window.location = '/oc?id=sc_category&sys_id=d2f7cae4c611227a018ddc481b34e099&catalog_id=e0d08b13c3330100c8b837659bba8fb4';
+	};
+
+	c.onAnswersClick = function() {
+		// $rootScope.$broadcast('sspAnswersClick', "CustomSearch");
+		window.location = '/oc?id=kb_category&kb_category=387b2552ff0131009b20ffffffffffdf';
+	};
+	
+
+
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>// Main Search Block - Top //&#13;
+#ssp_main_search{&#13;
+	border: 1px solid #ccc;&#13;
+  margin-bottom: 0px;&#13;
+  padding-bottom: 0px;&#13;
+}&#13;
+&#13;
+.container-fluid {&#13;
+	width: 100%;&#13;
+}&#13;
+.row {&#13;
+	margin-top: 1px;&#13;
+}&#13;
+&#13;
+.custSearch {&#13;
+  padding-top: 15px;&#13;
+  padding-bottom: 15px;&#13;
+  padding-left: 30px !important;&#13;
+  padding-right: 30px !important;&#13;
+  border-radius: 25px;&#13;
+  margin-bottom: 20px;&#13;
+}&#13;
+&#13;
+.custSearchHeader {&#13;
+	text-align: center  !important;&#13;
+	color: $navbar-inverse-bg !important;&#13;
+  overflow-wrap: break-word;&#13;
+}&#13;
+&#13;
+h1.custSearchHeader{&#13;
+	margin-top: 1px;&#13;
+}&#13;
+&#13;
+.avatar-container .avatar.soloAvatar .sub-avatar {&#13;
+color: $brand-info !important;&#13;
+}&#13;
+&#13;
+// Search Bar Block and Search Drop Results&#13;
+.dropdown-menu {&#13;
+   background-color: #FFFFFF;&#13;
+}&#13;
+.ta-item {&#13;
+	color: $dark-text !important;&#13;
+}&#13;
+.ta-item a:hover {&#13;
+	color: $hover-text !important;&#13;
+}&#13;
+&#13;
+&#13;
+div.search-select {&#13;
+  position: relative;&#13;
+  background-color: $navbar-inverse-bg;&#13;
+  color: #ffffff;&#13;
+  border-radius: 8px;&#13;
+  margin-bottom: 8px;&#13;
+  margin-right: auto;&#13;
+  margin-left: auto;&#13;
+  max-width: 80%;&#13;
+  min-height: 50px;&#13;
+  &#13;
+  .search-icon {&#13;
+    font-size: 24px;&#13;
+  }&#13;
+  &#13;
+  span.ssp-icon{&#13;
+    position: absolute;&#13;
+    top: 50%;&#13;
+    left: 10%;&#13;
+    transform: translateY(-50%);&#13;
+    width: 28px;&#13;
+  }&#13;
+  &#13;
+  span.ssp-icon img{&#13;
+    width: 100%;&#13;
+  }&#13;
+  &#13;
+  .search-text{&#13;
+    font-size: 18px;&#13;
+    text-align: left;&#13;
+    &#13;
+    span.ssp-center-text{&#13;
+    	position: absolute;&#13;
+      top: 50%;&#13;
+      left: 55%;&#13;
+      transform: translate(-50%, -50%);&#13;
+    }&#13;
+  }&#13;
+  &#13;
+}/* end search-select */&#13;
+&#13;
+div.search-select:hover,&#13;
+div.search-select:active{&#13;
+  color: $brand-secondary;&#13;
+  background-color: $brand-primary;&#13;
+}&#13;
+&#13;
+// Hide small screen icons&#13;
+.smallSearch {&#13;
+  display: none; &#13;
+}  &#13;
+&#13;
+.brSmall {&#13;
+  display: block; &#13;
+  margin-bottom: -.4em; &#13;
+}&#13;
+&#13;
+// Tooltip CSS&#13;
+.tooltipRS {&#13;
+  // position:relative; /* making the .tooltip span a container for the tooltip text */&#13;
+  // border-bottom:1px solid #000; /* little indicater to indicate it's hoverable */&#13;
+}&#13;
+&#13;
+.tooltipRS:before {&#13;
+  content: attr(data-text); /* here's the magic */&#13;
+  position:absolute;&#13;
+  &#13;
+  /* vertically center */&#13;
+  top:80%;&#13;
+  transform:translateY(20px);&#13;
+  &#13;
+  /* move to right */&#13;
+  // left:-25px;&#13;
+  margin-right:15px; /* and add a small right margin */&#13;
+  &#13;
+  /* basic styles */&#13;
+  width:165px;&#13;
+  padding:10px;&#13;
+  border-radius:10px;&#13;
+  background:$brand-info;&#13;
+  color: #fff;&#13;
+  text-align:center;&#13;
+&#13;
+  display:none; /* hide by default */&#13;
+}&#13;
+&#13;
+.tooltipRS:hover:before {&#13;
+  display:block;&#13;
+  z-index: 9999;&#13;
+}&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+@media ( max-width: 1280px){&#13;
+ div.search-select{&#13;
+    max-width: 90%;&#13;
+   &#13;
+   span.ssp-icon{&#13;
+      width: 24px;&#13;
+    }&#13;
+   &#13;
+ 	.search-text{&#13;
+      font-size: 16px;&#13;
+    &#13;
+    span.ssp-center-text{&#13;
+    	left: 60%;&#13;
+    }&#13;
+   }&#13;
+   &#13;
+	}/* end .search-select */&#13;
+&#13;
+}/* end media 1280 */&#13;
+&#13;
+@media ( max-width: 990px){&#13;
+  div.search-select{&#13;
+&#13;
+    .search-text{&#13;
+    	span.ssp-center-text{&#13;
+        left: 50%;&#13;
+      }&#13;
+    }&#13;
+    &#13;
+  }/* end search-select */&#13;
+} /* end media 990 */&#13;
+&#13;
+&#13;
+// Hide elements small screen&#13;
+@media  (max-width: 768px) {&#13;
+&#13;
+.searchRow { &#13;
+	background-color: #ffffff !important;&#13;
+	padding-bottom: 1em;&#13;
+	margin-top: -20px;&#13;
+}  &#13;
+ div.search-select {&#13;
+   &#13;
+   min-height: 70px;&#13;
+   &#13;
+   span.ssp-icon{&#13;
+      width: 24px;&#13;
+      left: 50%;&#13;
+      top: 4px;&#13;
+      transform: translateX(-50%);&#13;
+    }&#13;
+   &#13;
+  .search-text{&#13;
+    text-align: center;&#13;
+    font-size: 14px;&#13;
+    span.ssp-center-text{&#13;
+      top: 70%;&#13;
+    	left: 50%;&#13;
+    }&#13;
+   }&#13;
+   &#13;
+  } /* end .select-search */&#13;
+ &#13;
+}/* end media 768 */&#13;
+&#13;
+&#13;
+@media (max-width: 560px){&#13;
+  &#13;
+  .largeSearch .col-xs-3{&#13;
+  	padding-left: 4px;&#13;
+    padding-right: 4px;&#13;
+  }&#13;
+&#13;
+ .search-select { &#13;
+  	padding-left: 2px;&#13;
+    padding-right: 2px;  &#13;
+  } /* end .search-select */&#13;
+  &#13;
+} /* end media 560 */&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>epsp_main_search_block</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>EPSP Main Search Block</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	data.userFirst = gs.getUser().getFirstName();
+	data.userTimeZone = gs.getSession().getTimeZoneName();
+	data.bgImage = options.image ||  'oc-background.png';
+	data.backgroundImage = {
+		"background-image": "url(" + data.bgImage + ")",
+		"background-position": options.bgImagePosition || 'center', 
+		"background-attchment" : options.bgImageAttachment || 'local',
+		"background-repeat": options.bgImageRepeat || 'no-repeat', 
+		"background-size" : options.bgImageSize || 'cover',
+		"margin-top": "0px",
+		"margin-bottom" : "5px"
+		
+	};
+	
+	//if true shows font awesome icons on the buttons
+	//else we show the images
+	data.fAwesome = false;
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2021-08-12 12:55:27</sys_created_on>
+        <sys_id>f5b3ef231b31b81055d178cf034bcb5b</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>EPSP Main Search Block</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sp_widget_f5b3ef231b31b81055d178cf034bcb5b</sys_update_name>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-09-02 14:31:51</sys_updated_on>
+        <template><![CDATA[<div id="ssp_main_search" class="row" ng-style="data.backgroundImage">
+    <!--<div class="col-md-2"></div>-->
+  
+    <div class="col-md-offset-2 col-md-8 custSearch">
+          <h1 class="custSearchHeader" style="color:#FFFFFF;">
+        How can we help, {{c.data.userFirst}}?
+      </h1>
+      
+      <div class="searchbox-row" >
+         <widget id="typeahead-search"></widget>
+        </div>
+
+<!-- Display for large screens -->      
+      <div class="row largeSearch">
+       <!-- <div class="col-sm-2"></div> -->
+        
+        <div class="col-xs-3"> 
+        <div id="searchHelp" class="search-select tooltipRS" ng-click="c.onHelpClick()" data-text="Request help with something that's broken or not working properly.">  
+          <p class="search-text" >
+            <span ng-if="data.fAwesome" class="ssp-icon fa icon-alert search-icon"></span>
+            <span ng-if="!data.fAwesome" class="ssp-icon"><img src="icon_report_issues.png" title=""/></span>
+            <span class="ssp-center-text">Report&nbsp;an<span class="brSmall"></span>Issue</span>
+          </p>
+        </div>		      
+      </div>
+        
+      <div class="col-xs-3">
+        <div id="searchServices" class="search-select tooltipRS" ng-click="c.onServicesClick()" data-text="Browse and select available services.">
+          <p class="search-text">
+            <span ng-if="data.fAwesome" class="ssp-icon fa fa-wrench search-icon"></span>
+            <span ng-if="!data.fAwesome" class="ssp-icon"><img src="icon_request_services.png" title=""/></span>
+            <span class="ssp-center-text">Request<span class="brSmall"></span>Service</span>
+          </p>
+        </div>
+      </div>
+      
+      <div class="col-xs-3">
+        <div id="searchAccess" class="search-select tooltipRS" ng-click="c.onAccessClick()" data-text="Complete a Provisioning / Deprovisioning form or request system access.">
+          <p class="search-text">
+            <span ng-if="data.fAwesome" class="ssp-icon fa fa-key search-icon"></span>
+            <span ng-if="!data.fAwesome" class="ssp-icon"><img src="icon_get_access.png" title=""/></span>
+            <span class="ssp-center-text">Get<span class="brSmall"></span>Access</span>
+          </p>
+        </div>
+      </div>
+
+        <div class="col-xs-3 largeSearch">                       
+         <div id="searchAnswers" class="search-select tooltipRS" ng-click="c.onAnswersClick()" data-text="Search the Knowledge Base for self-help articles, FAQs, and how-tos.">
+           <p class="search-text">
+              <span ng-if="data.fAwesome" class="menu-icon ssp-icon fa icon-info search-icon"></span>
+              <span ng-if="!data.fAwesome" class="ssp-icon"><img src="icon_resource_lib.png" title=""/></span>
+              <span class="ssp-center-text">Resource<span class="brSmall"></span>Library</span>
+           </p>
+
+        </div>
+      </div>         
+
+        <!-- <div class="col-sm-2"></div> -->
+        
+      </div>    
+       
+<!-- Display for small screens --> 
+   <!--  <div class="row smallSearch">
+               
+        <div id="searchHelp" class="search-select" ng-click="c.onHelpClick()">  
+          <span class="fa icon-alert search-icon "></span>
+          <p class="search-text">
+            Report
+            <span class="brSmall"></span>
+						Issue
+          </p>
+        </div>		      
+        <div id="searchServices" class="search-select" ng-click="c.onServicesClick()">
+          <span class="fa fa-wrench search-icon"></span>
+          <p class="search-text">
+            Request
+            <span class="brSmall"></span>
+						Service
+          </p>
+        </div>
+        <div id="searchAccess" class="search-select" ng-click="c.onServicesClick()">
+          <span class="fa fa-key search-icon"></span>
+          <p class="search-text">
+            Get
+            <span class="brSmall"></span>
+						Access
+          </p>
+        </div>
+         <div id="searchAnswers" class="search-select" ng-click="c.onAnswersClick()">
+          <span class="menu-icon fa icon-info search-icon"></span>
+          <p class="search-text">
+            Resource
+            <span class="brSmall"></span>
+						Library
+          </p>
+        </div>
+      </div>
+
+  </div>-->
+
+<!--<div class="col-md-2"></div>-->
+</div>]]></template>
+    </sp_widget>
+</record_update>

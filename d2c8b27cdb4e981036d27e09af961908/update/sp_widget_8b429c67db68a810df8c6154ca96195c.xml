@@ -29,21 +29,19 @@
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-11-23 22:10:50</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>8b429c67db68a810df8c6154ca96195c</sys_id>
-        <sys_mod_count>33</sys_mod_count>
+        <sys_mod_count>39</sys_mod_count>
         <sys_name>EPSP Pending Changes</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>sp_widget_8b429c67db68a810df8c6154ca96195c</sys_update_name>
-        <sys_updated_by>admindavid</sys_updated_by>
-        <sys_updated_on>2020-11-23 23:53:58</sys_updated_on>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-09-07 15:01:16</sys_updated_on>
         <template><![CDATA[<div class="panel panel-default b" ng-attr-id="ssp_id_{{ c.data.parent_id }}" style="max-height:208px; margin-top:2px;">  
 
   <div class="panel-heading panel-heading-master">
-    <h2 class="panel-title ssp-custom-widget-header">Change Report - Next 14 Days</h2>
+    <h2 class="panel-title ssp-custom-widget-header">Pending Changes - This Month</h2>
   </div>  
   
   <div  class="panel-body-master container-fluid">  
@@ -52,9 +50,9 @@
           
       <div class="col-sm-12">
         <div class="ssp-direct-list-group list-group list-group-links" style="margin-left:-5px; margin-right:-5px; height:150px;">
-          <div ng-repeat="item in c.data.pendChanges">
-          	<a href="/nav_to.do?uri=%2Fchange_request.do%3Fsys_id%3D{{item.sysID}}">{{item.description}}</a>&nbsp;Start: {{item.startDate}}
-          </div>  
+          <div style="margin-top:5px;" ng-repeat="item in c.data.pendChanges">
+          	<a href="/nav_to.do?uri=%2Fchange_request.do%3Fsys_id%3D{{item.sysID}}">{{item.description}}</a>&nbsp;Start: {{item.startDate}}         	
+          </div>
         </div>
       </div>
           

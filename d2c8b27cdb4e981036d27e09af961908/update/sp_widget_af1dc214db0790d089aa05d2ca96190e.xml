@@ -89,6 +89,7 @@
 							events: {
 								click: function() {
 									if (c.data.hasITIL) {
+										if (this.options.name == "Inquiry / Help") {this.options.name = "inquiry";}
 										location.href = "/nav_to.do?uri=%2F"+c.options.table_name+"_list.do%3Fsysparm_query="+c.options.aggregate_filter+"%5E"+c.options.aggregate_field+"%3D"+this.options.name;
 										// location.href = "/oc?id=list&&table="+c.options.table_name+"&sysparm_query="+c.options.aggregate_filter+"%5E"+c.options.aggregate_field+"%3D"+this.options.name;
 									}
@@ -169,17 +170,15 @@ td, th {
         <sys_class_name>sp_widget</sys_class_name>
         <sys_created_by>admindavid</sys_created_by>
         <sys_created_on>2020-08-31 15:13:00</sys_created_on>
-        <sys_customer_update>false</sys_customer_update>
         <sys_id>af1dc214db0790d089aa05d2ca96190e</sys_id>
-        <sys_mod_count>50</sys_mod_count>
+        <sys_mod_count>55</sys_mod_count>
         <sys_name>SSP Bar Scroll</sys_name>
         <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
         <sys_policy/>
-        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
         <sys_update_name>sp_widget_af1dc214db0790d089aa05d2ca96190e</sys_update_name>
-        <sys_updated_by>admindavid</sys_updated_by>
-        <sys_updated_on>2020-12-18 00:10:22</sys_updated_on>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-09-08 20:18:08</sys_updated_on>
         <template><![CDATA[<div class='countIndicate' style="text-align:center;">
   <div id="replaceMeInClientScript" style="height:200px;"></div>
 </div>]]></template>

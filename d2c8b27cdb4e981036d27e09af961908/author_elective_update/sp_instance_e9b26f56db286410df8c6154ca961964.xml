@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph/>
+        <id/>
+        <order>2</order>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">e425468edb9ad090b83e790aaf9619a5</sp_column>
+        <sp_widget display_value="SN List">cf2e186793b0220064f572edb67ffb4f</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-11-20 16:08:59</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>e9b26f56db286410df8c6154ca961964</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sp_instance_e9b26f56db286410df8c6154ca961964</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-11-20 16:08:59</sys_updated_on>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance>
+    <sys_translated_text action="DELETE" query="documentkey=e9b26f56db286410df8c6154ca961964"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</application>
+        <file_path/>
+        <instance_id>3b4fefdd99da454870acd38ad3bda4ad</instance_id>
+        <instance_name>ismcgdev</instance_name>
+        <name>sp_instance_e9b26f56db286410df8c6154ca961964</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance"><sp_instance action="INSERT_OR_UPDATE"><active>true</active><class_name/><color>default</color><css/><glyph/><id/><order>2</order><roles/><short_description/><size>md</size><sp_column display_value="1">e425468edb9ad090b83e790aaf9619a5</sp_column><sp_widget display_value="SN List">cf2e186793b0220064f572edb67ffb4f</sp_widget><sys_class_name>sp_instance</sys_class_name><sys_created_by>admindavid</sys_created_by><sys_created_on>2020-11-20 16:08:59</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>e9b26f56db286410df8c6154ca961964</sys_id><sys_mod_count>0</sys_mod_count><sys_name/><sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope><sys_update_name>sp_instance_e9b26f56db286410df8c6154ca961964</sys_update_name><sys_updated_by>admindavid</sys_updated_by><sys_updated_on>2020-11-20 16:08:59</sys_updated_on><title/><url/><widget_parameters/></sp_instance><sys_translated_text action="delete_multiple" query="documentkey=e9b26f56db286410df8c6154ca961964"/></record_update>]]></payload>
+        <payload_hash>-509232750</payload_hash>
+        <record_name/>
+        <reverted_from/>
+        <source>3cb715e8dbfb101089aa05d2ca9619e0</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-11-20 16:08:59</sys_created_on>
+        <sys_id>29b26f56db286410df8c6154ca961967</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>175e66a7d430000001</sys_recorded_at>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-11-20 16:08:59</sys_updated_on>
+        <type>Instance</type>
+        <update_guid>21b26f56ca2864107e601b68790dc667</update_guid>
+        <update_guid_history>21b26f56ca2864107e601b68790dc667:-509232750</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">53d2a756db286410df8c6154ca961908</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-11-20 16:09:40</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance">sp_instance</sys_db_object>
+        <sys_id>b69914a351184584908115ecd81a3e24</sys_id>
+        <sys_metadata>e9b26f56db286410df8c6154ca961964</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_scope_delete display_value="">3d5412e405f24dee9d3ad7eb043dc331</sys_scope_delete>
+        <sys_update_name>sp_instance_e9b26f56db286410df8c6154ca961964</sys_update_name>
+        <sys_update_version display_value="sp_instance_e9b26f56db286410df8c6154ca961964">29b26f56db286410df8c6154ca961967</sys_update_version>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-11-20 16:09:40</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

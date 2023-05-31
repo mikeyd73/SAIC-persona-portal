@@ -25,6 +25,7 @@ $text-muted: #979797;&#13;
 </css_variables>
         <default>true</default>
         <enable_ais>true</enable_ais>
+        <enable_favorites>false</enable_favorites>
         <hide_portal_name>false</hide_portal_name>
         <homepage display_value="epsp_oc_home">56ae2309db0a1c1036d27e09af9619d0</homepage>
         <icon>baf27a5c1be2b89055d178cf034bcb0f</icon>

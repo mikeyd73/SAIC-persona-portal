@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_table">
+    <sp_instance_table action="DELETE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <display_field/>
+        <field_list>number,short_description,u_downtime_required_,start_date,end_date</field_list>
+        <filter table="change_request">start_dateRELATIVELT@dayofweek@ahead@14^end_date&gt;=javascript:gs.beginningOfToday()^state!=3^ORstate=NULL<item endquery="false" field="start_date" goto="false" newquery="false" operator="RELATIVE" or="false" value="LT@dayofweek@ahead@14"/>
+            <item endquery="false" field="end_date" goto="false" newquery="false" operator="&gt;=" or="false" value="javascript:gs.beginningOfToday()"/>
+            <item display_value="Closed" endquery="false" field="state" goto="false" newquery="false" operator="!=" or="false" value="3"/>
+            <item display_value="NULL" endquery="false" field="state" goto="false" newquery="false" operator="=" or="true" value="NULL"/>
+        </filter>
+        <glyph/>
+        <id/>
+        <maximum_entries/>
+        <order>2</order>
+        <order_by>start_date</order_by>
+        <order_direction>asc</order_direction>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">e425468edb9ad090b83e790aaf9619a5</sp_column>
+        <sp_page/>
+        <sp_widget display_value="Data Table with URL Filter">5d8f9dc2936832003706dfa5e57ffb06</sp_widget>
+        <sys_class_name>sp_instance_table</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-11-20 16:16:22</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>6d64eb96db286410df8c6154ca961905</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Change Report - Rolling Next 14 Days</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>sp_instance_table_6d64eb96db286410df8c6154ca961905</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-11-20 16:18:38</sys_updated_on>
+        <table>change_request</table>
+        <title>Change Report - Rolling Next 14 Days</title>
+        <url/>
+        <widget_parameters/>
+    </sp_instance_table>
+    <sys_translated_text action="DELETE" query="documentkey=6d64eb96db286410df8c6154ca961905"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</application>
+        <file_path/>
+        <instance_id>3b4fefdd99da454870acd38ad3bda4ad</instance_id>
+        <instance_name>ismcgdev</instance_name>
+        <name>sp_instance_table_6d64eb96db286410df8c6154ca961905</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_table"><sp_instance_table action="INSERT_OR_UPDATE"><active>true</active><class_name/><color>default</color><css/><display_field/><field_list>number,short_description,u_downtime_required_,start_date,end_date</field_list><filter table="change_request">start_dateRELATIVELT@dayofweek@ahead@14^end_date&gt;=javascript:gs.beginningOfToday()^state!=3^ORstate=NULL<item endquery="false" field="start_date" goto="false" newquery="false" operator="RELATIVE" or="false" value="LT@dayofweek@ahead@14"/><item endquery="false" field="end_date" goto="false" newquery="false" operator="&gt;=" or="false" value="javascript:gs.beginningOfToday()"/><item display_value="Closed" endquery="false" field="state" goto="false" newquery="false" operator="!=" or="false" value="3"/><item display_value="NULL" endquery="false" field="state" goto="false" newquery="false" operator="=" or="true" value="NULL"/></filter><glyph/><id/><maximum_entries/><order>2</order><order_by>start_date</order_by><order_direction>asc</order_direction><roles/><short_description/><size>md</size><sp_column display_value="1">e425468edb9ad090b83e790aaf9619a5</sp_column><sp_page/><sp_widget display_value="Data Table with URL Filter">5d8f9dc2936832003706dfa5e57ffb06</sp_widget><sys_class_name>sp_instance_table</sys_class_name><sys_created_by>admindavid</sys_created_by><sys_created_on>2020-11-20 16:16:22</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>6d64eb96db286410df8c6154ca961905</sys_id><sys_mod_count>1</sys_mod_count><sys_name>Change Report - Rolling Next 14 Days</sys_name><sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope><sys_update_name>sp_instance_table_6d64eb96db286410df8c6154ca961905</sys_update_name><sys_updated_by>admindavid</sys_updated_by><sys_updated_on>2020-11-20 16:18:38</sys_updated_on><table>change_request</table><title>Change Report - Rolling Next 14 Days</title><url/><widget_parameters/></sp_instance_table><sys_translated_text action="delete_multiple" query="documentkey=6d64eb96db286410df8c6154ca961905"/></record_update>]]></payload>
+        <payload_hash>-522154470</payload_hash>
+        <record_name>Change Report - Rolling Next 14 Days</record_name>
+        <reverted_from/>
+        <source>3cb715e8dbfb101089aa05d2ca9619e0</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-11-20 16:18:38</sys_created_on>
+        <sys_id>76e4e31adb286410df8c6154ca961972</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>175e67350830000001</sys_recorded_at>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-11-20 16:18:38</sys_updated_on>
+        <type>Instance with Table</type>
+        <update_guid>3ee4e31a342864107726c9bdbbcdb071</update_guid>
+        <update_guid_history>3ee4e31a342864107726c9bdbbcdb071:-522154470,2164eb96a628641073d79fd719a23d08:-446811382</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="">fad6ab1adb286410df8c6154ca961905</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-11-20 16:27:06</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance_table">sp_instance_table</sys_db_object>
+        <sys_id>a39a0ac6ccec4ff8a59492b37f06fa40</sys_id>
+        <sys_metadata>6d64eb96db286410df8c6154ca961905</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Change Report - Rolling Next 14 Days</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_scope_delete display_value="">3d5412e405f24dee9d3ad7eb043dc331</sys_scope_delete>
+        <sys_update_name>sp_instance_table_6d64eb96db286410df8c6154ca961905</sys_update_name>
+        <sys_update_version display_value="sp_instance_table_6d64eb96db286410df8c6154ca961905">76e4e31adb286410df8c6154ca961972</sys_update_version>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-11-20 16:27:06</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

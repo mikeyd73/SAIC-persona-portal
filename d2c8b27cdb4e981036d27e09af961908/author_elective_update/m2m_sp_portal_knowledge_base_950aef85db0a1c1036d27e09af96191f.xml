@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_knowledge_base">
+    <m2m_sp_portal_knowledge_base action="DELETE">
+        <active>true</active>
+        <kb_knowledge_base display_value="OC Service Desk">25c2ccaedb4cd700b83e790aaf9619d6</kb_knowledge_base>
+        <order>100</order>
+        <sp_portal display_value="OC Enhanced Portal">a780cf38db8e981036d27e09af961907</sp_portal>
+        <sys_class_name>m2m_sp_portal_knowledge_base</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-07-15 12:52:18</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>950aef85db0a1c1036d27e09af96191f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>OC Service Desk.Persona Portal</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>m2m_sp_portal_knowledge_base_950aef85db0a1c1036d27e09af96191f</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-07-15 12:52:18</sys_updated_on>
+    </m2m_sp_portal_knowledge_base>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</application>
+        <file_path/>
+        <instance_id>85f207696f9e420056007b2f5d3ee415</instance_id>
+        <instance_name>saicdemo1</instance_name>
+        <name>m2m_sp_portal_knowledge_base_950aef85db0a1c1036d27e09af96191f</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_knowledge_base"><m2m_sp_portal_knowledge_base action="INSERT_OR_UPDATE"><active>true</active><kb_knowledge_base display_value="OC Service Desk">25c2ccaedb4cd700b83e790aaf9619d6</kb_knowledge_base><order>100</order><sp_portal display_value="OC Enhanced Portal">a780cf38db8e981036d27e09af961907</sp_portal><sys_class_name>m2m_sp_portal_knowledge_base</sys_class_name><sys_created_by>admindavid</sys_created_by><sys_created_on>2020-07-15 12:52:18</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>950aef85db0a1c1036d27e09af96191f</sys_id><sys_mod_count>0</sys_mod_count><sys_name>OC Service Desk.Persona Portal</sys_name><sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope><sys_update_name>m2m_sp_portal_knowledge_base_950aef85db0a1c1036d27e09af96191f</sys_update_name><sys_updated_by>admindavid</sys_updated_by><sys_updated_on>2020-07-15 12:52:18</sys_updated_on></m2m_sp_portal_knowledge_base></record_update>]]></payload>
+        <payload_hash>1372723727</payload_hash>
+        <record_name>OC Service Desk.Persona Portal</record_name>
+        <reverted_from/>
+        <source>72162bdf1bf5381055d178cf034bcbe9</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2021-08-11 18:27:35</sys_created_on>
+        <sys_id>6d26ebdf1bf5381055d178cf034bcb3e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17b367840180000001</sys_recorded_at>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-08-11 18:27:35</sys_updated_on>
+        <type>Portal Knowledge Base</type>
+        <update_guid>2d26ebdfd7f538106169a2a2b2a1113e</update_guid>
+        <update_guid_history>2d26ebdfd7f538106169a2a2b2a1113e:1372723727</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="OC Service Desk.Persona Portal">7212f7931b79381055d178cf034bcbef</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2021-08-11 19:19:50</sys_created_on>
+        <sys_db_object display_value="" name="m2m_sp_portal_knowledge_base">m2m_sp_portal_knowledge_base</sys_db_object>
+        <sys_id>22882d33a5d4457894cd847adc928840</sys_id>
+        <sys_metadata>950aef85db0a1c1036d27e09af96191f</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>OC Service Desk.Persona Portal</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_scope_delete display_value="">3d5412e405f24dee9d3ad7eb043dc331</sys_scope_delete>
+        <sys_update_name>m2m_sp_portal_knowledge_base_950aef85db0a1c1036d27e09af96191f</sys_update_name>
+        <sys_update_version display_value="m2m_sp_portal_knowledge_base_950aef85db0a1c1036d27e09af96191f">6d26ebdf1bf5381055d178cf034bcb3e</sys_update_version>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-08-11 19:19:50</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

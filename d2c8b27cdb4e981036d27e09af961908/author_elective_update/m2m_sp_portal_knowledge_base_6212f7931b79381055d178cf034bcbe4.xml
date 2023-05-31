@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_knowledge_base">
+    <m2m_sp_portal_knowledge_base action="DELETE">
+        <active>true</active>
+        <kb_knowledge_base display_value="IT">a7e8a78bff0221009b20ffffffffff17</kb_knowledge_base>
+        <order>100</order>
+        <sp_portal display_value="Enhanced Portal">a780cf38db8e981036d27e09af961907</sp_portal>
+        <sys_class_name>m2m_sp_portal_knowledge_base</sys_class_name>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2021-08-11 19:19:49</sys_created_on>
+        <sys_id>6212f7931b79381055d178cf034bcbe4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>IT.Enhanced Portal</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>m2m_sp_portal_knowledge_base_6212f7931b79381055d178cf034bcbe4</sys_update_name>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-08-11 19:19:49</sys_updated_on>
+    </m2m_sp_portal_knowledge_base>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</application>
+        <file_path/>
+        <instance_id>85f207696f9e420056007b2f5d3ee415</instance_id>
+        <instance_name>saicdemo1</instance_name>
+        <name>m2m_sp_portal_knowledge_base_6212f7931b79381055d178cf034bcbe4</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_knowledge_base"><m2m_sp_portal_knowledge_base action="INSERT_OR_UPDATE"><active>true</active><kb_knowledge_base display_value="IT">a7e8a78bff0221009b20ffffffffff17</kb_knowledge_base><order>100</order><sp_portal display_value="Enhanced Portal">a780cf38db8e981036d27e09af961907</sp_portal><sys_class_name>m2m_sp_portal_knowledge_base</sys_class_name><sys_created_by>adminbleicherd</sys_created_by><sys_created_on>2021-08-11 19:19:49</sys_created_on><sys_id>6212f7931b79381055d178cf034bcbe4</sys_id><sys_mod_count>0</sys_mod_count><sys_name>IT.Enhanced Portal</sys_name><sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package><sys_policy/><sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope><sys_update_name>m2m_sp_portal_knowledge_base_6212f7931b79381055d178cf034bcbe4</sys_update_name><sys_updated_by>adminbleicherd</sys_updated_by><sys_updated_on>2021-08-11 19:19:49</sys_updated_on></m2m_sp_portal_knowledge_base></record_update>]]></payload>
+        <payload_hash>-335199445</payload_hash>
+        <record_name>IT.Enhanced Portal</record_name>
+        <reverted_from/>
+        <source>9fc66b131b39381055d178cf034bcb90</source>
+        <source_table>sys_update_set</source_table>
+        <state>current</state>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2021-08-11 19:19:49</sys_created_on>
+        <sys_id>6e12f7931b79381055d178cf034bcbe6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17b36a8136a0000001</sys_recorded_at>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-08-11 19:19:49</sys_updated_on>
+        <type>Portal Knowledge Base</type>
+        <update_guid>6612f793f67938101ceca9d665dd4ee6</update_guid>
+        <update_guid_history>6612f793f67938101ceca9d665dd4ee6:-335199445</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="IT.Enhanced Portal">bb5fc06087b2ed10607e4089cebb35c3</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>guest</sys_created_by>
+        <sys_created_on>2023-05-10 19:22:10</sys_created_on>
+        <sys_db_object display_value="" name="m2m_sp_portal_knowledge_base">m2m_sp_portal_knowledge_base</sys_db_object>
+        <sys_id>764ba896cc7547408c754c2553091279</sys_id>
+        <sys_metadata>6212f7931b79381055d178cf034bcbe4</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>IT.Enhanced Portal</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_scope_delete display_value="">3d5412e405f24dee9d3ad7eb043dc331</sys_scope_delete>
+        <sys_update_name>m2m_sp_portal_knowledge_base_6212f7931b79381055d178cf034bcbe4</sys_update_name>
+        <sys_update_version display_value="m2m_sp_portal_knowledge_base_6212f7931b79381055d178cf034bcbe4">6e12f7931b79381055d178cf034bcbe6</sys_update_version>
+        <sys_updated_by>guest</sys_updated_by>
+        <sys_updated_on>2023-05-10 19:22:10</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

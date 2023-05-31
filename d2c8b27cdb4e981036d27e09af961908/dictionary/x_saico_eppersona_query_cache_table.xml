@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="99f8e9e31bcde0901eafb802dd4bcb0c" label="Query Cache Table" max_length="40" name="x_saico_eppersona_query_cache_table" type="collection">
+        <element attributes="edge_encryption_enabled=true,encode_utf8=false" label="Department" max_length="32" name="department" reference="cmn_department" reference_qual="u_active=true^EQ" reference_qual_condition="u_active=true^EQ" type="reference"/>
+        <element label="Query Name" max_length="40" name="query_name" type="string"/>
+        <element label="Query Result" max_length="30000" name="query_result" type="string"/>
+        <index name="index">
+            <element name="department"/>
+        </index>
+    </element>
+</database>

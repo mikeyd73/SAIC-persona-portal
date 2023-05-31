@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_catalog">
+    <m2m_sp_portal_catalog action="DELETE">
+        <active>true</active>
+        <order>100</order>
+        <sc_catalog display_value="OC Service Catalog">866b692f4fc01340a6bd5f211310c703</sc_catalog>
+        <sp_portal display_value="OC Enhanced Portal">a780cf38db8e981036d27e09af961907</sp_portal>
+        <sys_class_name>m2m_sp_portal_catalog</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2020-07-15 12:54:53</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>787ae7c5db0a1c1036d27e09af96191f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>OC Service Catalog.Persona Portal</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_update_name>m2m_sp_portal_catalog_787ae7c5db0a1c1036d27e09af96191f</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2020-07-15 12:54:53</sys_updated_on>
+    </m2m_sp_portal_catalog>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</application>
+        <file_path/>
+        <instance_id>85f207696f9e420056007b2f5d3ee415</instance_id>
+        <instance_name>saicdemo1</instance_name>
+        <name>m2m_sp_portal_catalog_787ae7c5db0a1c1036d27e09af96191f</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_catalog"><m2m_sp_portal_catalog action="INSERT_OR_UPDATE"><active>true</active><order>100</order><sc_catalog display_value="OC Service Catalog">866b692f4fc01340a6bd5f211310c703</sc_catalog><sp_portal display_value="OC Enhanced Portal">a780cf38db8e981036d27e09af961907</sp_portal><sys_class_name>m2m_sp_portal_catalog</sys_class_name><sys_created_by>admindavid</sys_created_by><sys_created_on>2020-07-15 12:54:53</sys_created_on><sys_customer_update>false</sys_customer_update><sys_id>787ae7c5db0a1c1036d27e09af96191f</sys_id><sys_mod_count>0</sys_mod_count><sys_name>OC Service Catalog.Persona Portal</sys_name><sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package><sys_policy/><sys_replace_on_upgrade>false</sys_replace_on_upgrade><sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope><sys_update_name>m2m_sp_portal_catalog_787ae7c5db0a1c1036d27e09af96191f</sys_update_name><sys_updated_by>admindavid</sys_updated_by><sys_updated_on>2020-07-15 12:54:53</sys_updated_on></m2m_sp_portal_catalog></record_update>]]></payload>
+        <payload_hash>-995700123</payload_hash>
+        <record_name>OC Service Catalog.Persona Portal</record_name>
+        <reverted_from/>
+        <source>72162bdf1bf5381055d178cf034bcbe9</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2021-08-11 18:27:35</sys_created_on>
+        <sys_id>a926ebdf1bf5381055d178cf034bcb3c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>17b36783ffe0000001</sys_recorded_at>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-08-11 18:27:35</sys_updated_on>
+        <type>Portal Catalog</type>
+        <update_guid>6926ebdf12f53810a8e6d35f1a80153c</update_guid>
+        <update_guid_history>6926ebdf12f53810a8e6d35f1a80153c:-995700123</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="OC Service Catalog.Persona Portal">e032bb931b79381055d178cf034bcbd3</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2021-08-11 19:20:14</sys_created_on>
+        <sys_db_object display_value="" name="m2m_sp_portal_catalog">m2m_sp_portal_catalog</sys_db_object>
+        <sys_id>5e442a56fb8b4e998b865392fd50d751</sys_id>
+        <sys_metadata>787ae7c5db0a1c1036d27e09af96191f</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>OC Service Catalog.Persona Portal</sys_name>
+        <sys_package display_value="PersonaPortal" source="x_saico_eppersona">d2c8b27cdb4e981036d27e09af961908</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="PersonaPortal">d2c8b27cdb4e981036d27e09af961908</sys_scope>
+        <sys_scope_delete display_value="">3d5412e405f24dee9d3ad7eb043dc331</sys_scope_delete>
+        <sys_update_name>m2m_sp_portal_catalog_787ae7c5db0a1c1036d27e09af96191f</sys_update_name>
+        <sys_update_version display_value="m2m_sp_portal_catalog_787ae7c5db0a1c1036d27e09af96191f">a926ebdf1bf5381055d178cf034bcb3c</sys_update_version>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2021-08-11 19:20:14</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
